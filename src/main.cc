@@ -22,7 +22,6 @@ int main(int pArgC, char* pArgs[])
     int lNumRows=atoi(lLine.c_str());
     
     //read each row
-	Ground ground;
 	std::cout << "Parsing rows" << std::endl;
     for(int i=0;i<lNumRows;i++)
     {

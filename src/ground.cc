@@ -6,20 +6,22 @@
 using std::cout;
 using std::endl;
 
+Ground ground;
+
 Ground::Ground()
 {
 	player.i = -1;
 	player.j = -1;
-	ground_size.i = -1;
-	ground_size.j = -1;
+	ground_size.i = 0;
+	ground_size.j = 0;
 }
 
 //Add a row to the Ground (rows must be added from top to bottom)
 bool Ground::addRow(const string& col) {
 
 	string * col_to_save = new string(col);
-	int new_size = (col.size()-1);
-	if (ground_size.j != -1)
+	int new_size = (col.size());
+	if (ground_size.j != 0)
 	{
 		assert(new_size == ground_size.j);
 	}
@@ -65,7 +67,7 @@ bool Ground::addRow(const string& col) {
 	{
 		std::cout << "Found a box" << std::endl;
 		tmp.i = __ground.size();
-		boxes.push_back(tmp);	
+		boxes.insert(tmp);	
 		(*col_to_save)[tmp.j] = EMPTY;
 	}
 
@@ -73,7 +75,7 @@ bool Ground::addRow(const string& col) {
 	while ((tmp.j = col_to_save->find(B_ON_GOAL, tmp.j+1))!=string::npos)
 	{
 		tmp.i = __ground.size();
-		boxes.push_back(tmp);	
+		boxes.insert(tmp);	
 		(*col_to_save)[tmp.j] = GOAL;
 	}
 	
@@ -114,6 +116,19 @@ void Ground::display()
 		std::cout << it_g->i << " " << it_g->j << std::endl;
 	}
 
+}
+
+bool Ground::isOut(const Point& here)
+{
+
+	bool out= (here.i < 0 || here.j <0 || here.i > ground_size.i-1 || here.j > __ground[here.i]->size()-1);
+	return out;
+}
+
+bool Ground::isBlocked(const Point& here)
+{
+	char type = (*(__ground[here.i]))[here.j];
+	return (type == WALL);
 }
 	
 

@@ -3,16 +3,23 @@
 
 #include "point.h"
 #include <vector>
+#include <set>
 
 
 class State
 {
 	public:
-		State(const std::vector<Point>& boxes, const Point& player);
+		State(const std::set<Point>& boxes, const Point& player);
+		~State();
 		void display();
 	
 	private:
-		std::vector<Point> boxes;
+		std::set<Point> boxes;
 		Point player;
+
+		//Area that the player can reach
+		bool ** reachable_area;
+		Point max_pos;
+		void compute_reachable_area(const Point& from);
 };
 #endif
