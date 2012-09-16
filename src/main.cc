@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include "csocket.h"
+#include "ground.h"
 
 int main(int pArgC, char* pArgs[])
 {
@@ -21,13 +22,23 @@ int main(int pArgC, char* pArgs[])
     int lNumRows=atoi(lLine.c_str());
     
     //read each row
+	Ground ground;
+	std::cout << "Parsing rows" << std::endl;
     for(int i=0;i<lNumRows;i++)
     {
         lSocket.ReadLine(lLine);
         //here, we would store the row somewhere, to build our board
         //in this demo, we just print it
         std::cout << lLine << "\n";
+		ground.addRow(lLine);
     }
+
+	std::cout << "---- Display map ----" << std::endl;
+	ground.display();
+	std::cout << "---- Dispaly initial state ----" <<std::endl;
+	State init = ground.getInitialState();
+	init.display();
+
     
     //now, we should find a path from the player to any goal
 
