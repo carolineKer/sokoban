@@ -86,3 +86,12 @@ void State::compute_reachable_area(const Point& from)
 	}
 }
 
+void State::expand()
+{
+	std::set<Point>::iterator it_b;
+	for (it_b = boxes.begin(); it_b != boxes.end(); it_b++)
+	{
+
+	}
+}
+

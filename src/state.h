@@ -12,6 +12,8 @@ class State
 		State(const std::set<Point>& boxes, const Point& player);
 		~State();
 		void display();
+
+		void expand();
 	
 	private:
 		std::set<Point> boxes;
@@ -21,5 +23,6 @@ class State
 		bool ** reachable_area;
 		Point max_pos;
 		void compute_reachable_area(const Point& from);
+		std::vector<State> next_states;
 };
 #endif
