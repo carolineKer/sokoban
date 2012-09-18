@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cassert>
-#include "case_type.h"
 #include "ground.h" 
 
 using std::cout;
@@ -120,7 +119,6 @@ void Ground::display()
 
 bool Ground::isOut(const Point& here)
 {
-
 	bool out= (here.i < 0 || here.j <0 || here.i > ground_size.i-1 || here.j > __ground[here.i]->size()-1);
 	return out;
 }
@@ -129,6 +127,11 @@ bool Ground::isBlocked(const Point& here)
 {
 	char type = (*(__ground[here.i]))[here.j];
 	return (type == WALL);
+}
+
+char Ground::operator()(const Point& here)
+{
+	return __ground[here.i]->at(here.j);
 }
 	
 

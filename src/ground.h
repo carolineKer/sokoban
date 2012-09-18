@@ -6,6 +6,7 @@
 #include <set>
 #include "point.h"
 #include "state.h"
+#include "case_type.h"
 
 
 using std::string;
@@ -40,6 +41,7 @@ class Ground {
 		};
 
 		bool isOut(const Point& here);
+		char operator()(const Point& here);
 
 	private:
 		//Current player position
@@ -49,6 +51,7 @@ class Ground {
 		vector<Point> goals;
 		set<Point> boxes;
 		Point ground_size;
+		vector<State *> next_states;
 };
 
 extern Ground ground;

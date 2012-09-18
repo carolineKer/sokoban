@@ -34,10 +34,20 @@ int main(int pArgC, char* pArgs[])
 
 	std::cout << "---- Display map ----" << std::endl;
 	ground.display();
-	std::cout << "---- Dispaly initial state ----" <<std::endl;
+	std::cout << "---- Display initial state ----" <<std::endl;
 	State init = ground.getInitialState();
 	init.display();
 
+	bool found_solution = false;
+	int i = 0;
+	while (!found_solution)
+	{
+		std::cout << "Node nb " << i << std::endl;
+		State* to_expand = State::nextState();
+		to_expand->display();
+		std::cout << "Try to expand" << std::endl;
+		found_solution = to_expand->expand();
+	}
     
     //now, we should find a path from the player to any goal
 
