@@ -46,13 +46,15 @@ bool Ground::addRow(const string& col) {
 			(*col_to_save)[player.j] = GOAL;
 			player.i = __ground.size();
 		}
-		
-		//Or the player can be on an empty case
-		player.j = col_to_save->find(PLAYER);
-		if (player.j != string::npos)
+		else
 		{
-			player.i = __ground.size();
-			(*col_to_save)[player.j] = EMPTY;
+			//Or the player can be on an empty case
+			player.j = col_to_save->find(PLAYER);
+			if (player.j != string::npos)
+			{
+				(*col_to_save)[player.j] = EMPTY;
+				player.i = __ground.size();
+			}
 		}
 	}
 	

@@ -29,6 +29,9 @@ State::State(const std::set<Point>& boxes, const Point& player):boxes(boxes),
 	max_pos.i = -1;
 	max_pos.j = -1;
 
+	std::cout << "Player " << std::endl;
+	std::cout << player.i << " " << player.j << " " << std::endl;
+
 	compute_reachable_area(player);
 	this->add_to_l();
 	all_states.push_back(this);
