@@ -27,6 +27,7 @@ class State
 		static State* nextState();
 		bool operator==(const State& a);
 		bool operator!=(const State& a);
+		State* parent;
 	
 	private:
 		std::set<Point> boxes;
@@ -46,7 +47,6 @@ class State
 		static std::list<State*> all_states;
 
 		Point moved_box;
-		State* parent;
 		int dir;
 };
 #endif

@@ -39,15 +39,36 @@ int main(int pArgC, char* pArgs[])
 	init.display();
 
 	bool found_solution = false;
+	State * final_state = NULL;
 	int i = 0;
 	while (!found_solution)
 	{
-		std::cout << "Node nb " << i << std::endl;
+		i++;
 		State* to_expand = State::nextState();
-		to_expand->display();
-		std::cout << "Try to expand" << std::endl;
+		//to_expand->display();
 		found_solution = to_expand->expand();
+		if (found_solution)
+		{
+			//Not true
+			final_state = to_expand; 
+		}
 	}
+	std::cout << " Found a solution after having expanded " 
+		<< i << "nodes " << std::endl;
+
+	State * curr_state = final_state;
+	std::cout << "------------" << std::endl;
+	std::cout << "Final State " << std::endl;
+	std::cout << "------------" << std::endl;
+	curr_state->display();
+	while (curr_state->parent !=NULL)
+	{
+		curr_state = curr_state->parent;
+		curr_state->display();
+	}
+
+
+
     
     //now, we should find a path from the player to any goal
 

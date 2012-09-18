@@ -133,7 +133,7 @@ bool State::expand()
 			{
 				std::set<Point>::iterator it;
 				it = boxes.find(*it_b-DIR[i]);
-				if (ground(*it_b-DIR[i])==EMPTY && it == boxes.end())
+				if ((ground(*it_b-DIR[i])==GOAL || ground(*it_b-DIR[i])==EMPTY) && it == boxes.end())
 				{
 					std::cout << "Build new state" << std::endl;
 					State * s = new State(*this, *it_b, i);
