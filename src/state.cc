@@ -135,12 +135,12 @@ bool State::expand()
 				it = boxes.find(*it_b-DIR[i]);
 				if ((ground(*it_b-DIR[i])==GOAL || ground(*it_b-DIR[i])==EMPTY) && it == boxes.end())
 				{
-					std::cout << "Build new state" << std::endl;
+					//std::cout << "Build new state" << std::endl;
 					State * s = new State(*this, *it_b, i);
-					std::cout << "New state built" << std::endl;
+					//std::cout << "New state built" << std::endl;
 					std::list<State*>::iterator it_states;
 					bool repeated_state = false;
-					std::cout << "Compare with all states" << std::endl;
+					//std::cout << "Compare with all states" << std::endl;
 					for (it_states=all_states.begin(); it_states!=all_states.end(); it_states++)
 					{
 						if (**it_states == *s)
@@ -153,14 +153,17 @@ bool State::expand()
 
 					if (repeated_state)
 					{
-						std::cout << "Repeated state --> delete" << std::endl;
-						delete s;
+						std::cout << "Repeated state" << std::endl;
 						continue;
 					}
-					all_states.push_back(this);
-					p_in_all_list = all_states.end() ;
-					p_in_all_list--;
-					is_in_all_list = true;
+					else
+					{
+						std::cout << "XXX Interesting state Add to queue" << std::endl;
+					}
+					all_states.push_back(s);
+					s->p_in_all_list = all_states.end() ;
+					s->p_in_all_list--;
+					s->is_in_all_list = true;
 
 					next.push_back(s);
 					if (s->isFinal())

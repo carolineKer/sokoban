@@ -44,6 +44,8 @@ int main(int pArgC, char* pArgs[])
 	while (!found_solution)
 	{
 		i++;
+		if (i%20==0)
+			std::cout << "Nodes " << i << std::endl;
 		State* to_expand = State::nextState();
 		//to_expand->display();
 		found_solution = to_expand->expand();

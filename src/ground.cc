@@ -64,7 +64,7 @@ bool Ground::addRow(const string& col) {
 	tmp.j = -1;
 	while ((tmp.j = col_to_save->find(BOX, tmp.j+1))!=string::npos)
 	{
-		std::cout << "Found a box" << std::endl;
+		//std::cout <<"Found a box" << std::endl;
 		tmp.i = __ground.size();
 		boxes.insert(tmp);	
 		(*col_to_save)[tmp.j] = EMPTY;
