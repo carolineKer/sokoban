@@ -39,7 +39,7 @@ State::State(const std::set<Point>& boxes, const Point& player):boxes(boxes),
 	p_in_all_list--;
 }
 
-State::State(State& prev_state, const Point& moved_box, int dir):boxes(prev_state.boxes), parent(&prev_state), dir(dir), is_in_all_list(false)
+State::State(State& prev_state, const Point& moved_box, int dir):boxes(prev_state.boxes), parent(&prev_state), dir(dir), is_in_all_list(false), is_in_expand_list(false)
 {
 	std::cout << "Build a state move box " << moved_box.i << " " << moved_box.j
 		<< " direction :" << -DIR[dir].i << " " << -DIR[dir].j << std::endl;
@@ -63,7 +63,6 @@ State::State(State& prev_state, const Point& moved_box, int dir):boxes(prev_stat
 	this->boxes.insert(moved_box-DIR[dir]);
 
 	compute_reachable_area(moved_box+DIR[dir]);
-	this->add_to_l();
 }
 
 
@@ -175,6 +174,7 @@ bool State::expand()
 					s->p_in_all_list = all_states.end() ;
 					s->p_in_all_list--;
 					s->is_in_all_list = true;
+					s->add_to_l();
 
 					next.push_back(s);
 					if (s->isFinal())
