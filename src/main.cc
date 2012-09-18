@@ -46,8 +46,7 @@ int main(int pArgC, char* pArgs[])
 		i++;
 		if (i%20==0)
 			std::cout << "Nodes " << i << std::endl;
-		State* to_expand = State::nextState();
-		//to_expand->display();
+		State* to_expand = State::nextStateToExpand();
 		found_solution = to_expand->expand();
 		if (found_solution)
 		{
@@ -62,11 +61,11 @@ int main(int pArgC, char* pArgs[])
 	std::cout << "------------" << std::endl;
 	std::cout << "Final State " << std::endl;
 	std::cout << "------------" << std::endl;
-	curr_state->display();
-	while (curr_state->parent !=NULL)
+
+	while (curr_state != NULL)
 	{
-		curr_state = curr_state->parent;
 		curr_state->display();
+		curr_state = curr_state->getParentState();
 	}
 
 

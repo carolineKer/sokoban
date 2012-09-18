@@ -4,8 +4,37 @@
 #include <cassert>
 #include <algorithm>
 
+
+//Contains the states wich must be expanded (because we are doing a BFS)
 std::list<State*> State::to_expand;
+
+//Contains all the already visited states
 std::list<State*> State::all_states;
+
+/* Constructor for the initial state */
+State::State(const std::set<Point>& boxes, const Point& player):boxes(boxes),  
+	parent(NULL), 
+	is_in_all_list(true)
+{
+	const Point ground_size = ground.getSize();
+	reachable_area = new bool*[ground_size.i];
+	for (int i = 0; i<ground_size.i; i++)
+	{
+		reachable_area[i] = new bool[ground_size.j];
+		for (int j = 0; j< ground_size.j ; j++)
+		{
+			reachable_area[i][j] = false;
+		}
+	}
+	max_pos.i = -1;
+	max_pos.j = -1;
+
+	compute_reachable_area(player);
+	this->add_to_l();
+	all_states.push_back(this);
+	p_in_all_list = all_states.end() ;
+	p_in_all_list--;
+}
 
 State::State(State& prev_state, const Point& moved_box, int dir):boxes(prev_state.boxes), parent(&prev_state), dir(dir), is_in_all_list(false)
 {
@@ -34,27 +63,6 @@ State::State(State& prev_state, const Point& moved_box, int dir):boxes(prev_stat
 	this->add_to_l();
 }
 
-State::State(const std::set<Point>& boxes, const Point& player):boxes(boxes),  parent(NULL), is_in_all_list(true)
-{
-	const Point ground_size = ground.getSize();
-	reachable_area = new bool*[ground_size.i];
-	for (int i = 0; i<ground_size.i; i++)
-	{
-		reachable_area[i] = new bool[ground_size.j];
-		for (int j = 0; j< ground_size.j ; j++)
-		{
-			reachable_area[i][j] = false;
-		}
-	}
-	max_pos.i = -1;
-	max_pos.j = -1;
-
-	compute_reachable_area(player);
-	this->add_to_l();
-	all_states.push_back(this);
-	p_in_all_list = all_states.end() ;
-	p_in_all_list--;
-}
 
 void State::display()
 {
@@ -191,7 +199,7 @@ bool State::isFinal()
 	return final;
 }
 
-State* State::nextState() 
+State* State::nextStateToExpand() 
 {
 	State * to_return = to_expand.front();
 	to_expand.pop_front();
