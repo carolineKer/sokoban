@@ -38,21 +38,15 @@ int main(int pArgC, char* pArgs[])
 	State init = ground.getInitialState();
 	init.display();
 
-	bool found_solution = false;
 	State * final_state = NULL;
 	int i = 0;
-	while (!found_solution)
+	while (final_state==NULL)
 	{
 		i++;
 		if (i%20==0)
 			std::cout << "Nodes " << i << std::endl;
 		State* to_expand = State::nextStateToExpand();
-		found_solution = to_expand->expand();
-		if (found_solution)
-		{
-			//Not true
-			final_state = to_expand; 
-		}
+		final_state = to_expand->expand();
 	}
 	std::cout << " Found a solution after having expanded " 
 		<< i << "nodes " << std::endl;

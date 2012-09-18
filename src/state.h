@@ -19,8 +19,9 @@ class State
 		//Print the reachable area for this state
 		void display();
 
-		//Returns true if one of the newly created node is final
-		bool expand();
+		//Returns the final state if it one found while expanding this state.
+		//Otherwise returns NULL
+		State * expand();
 
 		//Returns true if all the boxes are on a goal.
 		bool isFinal();

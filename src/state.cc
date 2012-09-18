@@ -41,8 +41,8 @@ State::State(const std::set<Point>& boxes, const Point& player):boxes(boxes),
 
 State::State(State& prev_state, const Point& moved_box, int dir):boxes(prev_state.boxes), parent(&prev_state), dir(dir), is_in_all_list(false), is_in_expand_list(false)
 {
-	std::cout << "Build a state move box " << moved_box.i << " " << moved_box.j
-		<< " direction :" << -DIR[dir].i << " " << -DIR[dir].j << std::endl;
+	//std::cout << "Build a state move box " << moved_box.i << " " << moved_box.j
+	//	<< " direction :" << -DIR[dir].i << " " << -DIR[dir].j << std::endl;
  	const Point ground_size = ground.getSize();
 	reachable_area = new bool*[ground_size.i];
 	for (int i = 0; i<ground_size.i; i++)
@@ -129,7 +129,7 @@ void State::compute_reachable_area(const Point& from)
 	}
 }
 
-bool State::expand()
+State* State::expand()
 {
 	std::set<Point>::iterator it_b;
 	//For each box
@@ -163,12 +163,12 @@ bool State::expand()
 
 					if (repeated_state)
 					{
-						std::cout << "Repeated state" << std::endl;
+						//std::cout << "Repeated state" << std::endl;
 						continue;
 					}
 					else
 					{
-						std::cout << "XXX Interesting state Add to queue" << std::endl;
+						//std::cout << "XXX Interesting state Add to queue" << std::endl;
 					}
 					all_states.push_back(s);
 					s->p_in_all_list = all_states.end() ;
@@ -178,11 +178,12 @@ bool State::expand()
 
 					next.push_back(s);
 					if (s->isFinal())
-						return true;
+						return s;
 				}
 			}
 		}
 	}
+	return NULL;
 	//TODO Maybe put deletion of reachable_area here rather than in the destructor
 }
 
