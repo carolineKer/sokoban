@@ -7,7 +7,7 @@
 std::list<State*> State::to_expand;
 std::list<State*> State::all_states;
 
-State::State(State& prev_state, const Point& moved_box, int dir):boxes(prev_state.boxes), parent(&prev_state) 
+State::State(State& prev_state, const Point& moved_box, int dir):boxes(prev_state.boxes), parent(&prev_state), dir(dir), is_in_all_list(false)
 {
 	std::cout << "Build a state move box " << moved_box.i << " " << moved_box.j
 		<< " direction :" << -DIR[dir].i << " " << -DIR[dir].j << std::endl;
@@ -29,15 +29,12 @@ State::State(State& prev_state, const Point& moved_box, int dir):boxes(prev_stat
 	assert(it != this->boxes.end());
 	this->boxes.erase(it);
 	this->boxes.insert(moved_box-DIR[dir]);
+
 	compute_reachable_area(moved_box+DIR[dir]);
 	this->add_to_l();
-	this->display();
-	all_states.push_back(this);
-	p_in_all_list = all_states.end() ;
-	p_in_all_list--;
 }
 
-State::State(const std::set<Point>& boxes, const Point& player):boxes(boxes),  parent(NULL)
+State::State(const std::set<Point>& boxes, const Point& player):boxes(boxes),  parent(NULL), is_in_all_list(true)
 {
 	const Point ground_size = ground.getSize();
 	reachable_area = new bool*[ground_size.i];
@@ -54,6 +51,9 @@ State::State(const std::set<Point>& boxes, const Point& player):boxes(boxes),  p
 
 	compute_reachable_area(player);
 	this->add_to_l();
+	all_states.push_back(this);
+	p_in_all_list = all_states.end() ;
+	p_in_all_list--;
 }
 
 void State::display()
@@ -82,18 +82,15 @@ void State::display()
 
 State::~State()
 {
-	std::cout  << "Delete 1 " << std::endl;
 	if (is_in_expand_list)
 		this->remove_from_l();
-	std::cout << " Delete 2 " << std::endl;
 	const Point ground_size = ground.getSize();
 	for (int i = 0; i<ground_size.i; i++)
 	{
 		delete[] reachable_area[i];
 	}
-	std::cout << "Delete 3" << std::endl;
-	all_states.erase(p_in_all_list);
-	std::cout << "Delete 4" << std::endl;
+	if (is_in_all_list)
+		all_states.erase(p_in_all_list);
 }
 
 void State::compute_reachable_area(const Point& from)
@@ -138,7 +135,9 @@ bool State::expand()
 				it = boxes.find(*it_b-DIR[i]);
 				if (ground(*it_b-DIR[i])==EMPTY && it == boxes.end())
 				{
+					std::cout << "Build new state" << std::endl;
 					State * s = new State(*this, *it_b, i);
+					std::cout << "New state built" << std::endl;
 					std::list<State*>::iterator it_states;
 					bool repeated_state = false;
 					std::cout << "Compare with all states" << std::endl;
@@ -151,12 +150,18 @@ bool State::expand()
 						}
 							
 					}
+
 					if (repeated_state)
 					{
 						std::cout << "Repeated state --> delete" << std::endl;
 						delete s;
 						continue;
 					}
+					all_states.push_back(this);
+					p_in_all_list = all_states.end() ;
+					p_in_all_list--;
+					is_in_all_list = true;
+
 					next.push_back(s);
 					if (s->isFinal())
 						return true;
@@ -205,21 +210,34 @@ void State::remove_from_l()
 
 bool State::operator==(const State& a)
 {
-	std::cout << "operator ==" << std::endl;
 	if (this->max_pos != a.max_pos)
 	{
-		std::cout << "not same max_pos" << std::endl;
 		return false;
-	}
-	else
-	{
-		std::cout << "same max_pos" << std::endl;
 	}
 
 	//TODO is it optimzed (I guess not)
 	std::set<Point> intersect;
+
+	std::set<Point>::iterator it;
+
+	/*
+	for (it = this->boxes.begin(); it !=this->boxes.end(); it++)
+	{
+		std::cout << "boxes " << (*it).i << " " << (*it).j << std::endl;
+	}
+
+	for (it = a.boxes.begin(); it !=a.boxes.end(); it++)
+	{
+		std::cout << "a " << (*it).i << " " << (*it).j << std::endl;
+	}
+	*/
 	set_intersection(this->boxes.begin(), this->boxes.end(), a.boxes.begin(), a.boxes.end(), std::inserter(intersect, intersect.end()));
+	/*
 	std::cout << "Intersect" << std::endl;
+	std::cout << "size of the set " << intersect.size() << std::endl;
+	std::cout << "Size of the box " << this->boxes.size() << std::endl;
+	*/
+
 	return (intersect.size() == this->boxes.size());
 }
 

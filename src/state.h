@@ -47,5 +47,6 @@ class State
 
 		Point moved_box;
 		State* parent;
+		int dir;
 };
 #endif
