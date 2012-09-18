@@ -1,0 +1,1 @@
+bool isDeadlock(char* surround);
