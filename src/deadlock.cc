@@ -1,4 +1,10 @@
-bool isDeadlock(char* surround){
+#include "state.h"
+#include "ground.h"
+#include "point.h"
+#include "case_type.h"
+#include <iostream>
+
+bool isDeadlock( const Point& p ,Point& dir ,const std::set<Point>& boxes){
     //  surround is an char array of five elements
     //  it represent the following situation:
     //  
@@ -19,10 +25,38 @@ bool isDeadlock(char* surround){
     //
     // here a will denote either $ or #
 
+    if ( ground(p) == GOAL ){
+        // The box is on a goal so it dose not mater
+        // if we have deadlock.
+        return false;
+    }
+    // left and right are the directions left and right
+    // relative to DIR[i]
+    // left operator:  [ [0,-1], [ 1,0] ]
+    // right operator: [ [0, 1], [-1,0] ] 
+    Point* right = new Point( dir.j,-dir.i);
+    Point* left  = new Point(-dir.j, dir.i);
+
+    // list of direction around
+    Point dir_list[5] =  {dir,*right,dir+*right,*left,dir+*left};
+    char* surround = new char[5];
+    for ( int iter=0 ; iter!=5 ; iter++ ){
+        if (ground(p+dir_list[iter])==WALL){
+            surround[iter] = WALL;
+        }
+        else if ( boxes.count(p+dir_list[iter]) != 0 ){
+            surround[iter] = BOX;
+        }
+        else{
+            surround[iter] = EMPTY;
+        }
+    }
+
     char* in_pos = new char[3];
-    in_pos[0] = ' '; // empty space
-    in_pos[1] = '$'; // a box
-    in_pos[2] = '#'; // a wall
+    in_pos[0] = EMPTY; // empty space
+    in_pos[1] = BOX; // a box
+    in_pos[2] = WALL; // a wall
+    
 
     if ( (surround[0] != in_pos[0]) && (surround[1] != in_pos[0]) && (surround[2] != in_pos[0]) ){
         //  aa
@@ -34,6 +68,7 @@ bool isDeadlock(char* surround){
         // aa
         // a$
         //  @
+        
         return true;
     }
     if ( (surround[0] == in_pos[2]) && ((surround[1]==in_pos[2]) || (surround[3]==in_pos[2])) ){
