@@ -9,6 +9,9 @@
 class Point
 {
 	public:
+
+		int distance(const Point& b) const;
+
 		Point(): i(0),j(0) {};
 		Point(int i, int j): i(i), j(j) { };
 		int i;
@@ -20,6 +23,7 @@ Point operator-(const Point& a, const Point& b);
 bool operator<(const Point& a, const Point& b);
 bool operator==(const Point& a, const Point& b);
 bool operator!=(const Point& a, const Point& b);
+
 extern Point DIR[4];
 
 #endif /*__POINT_H */

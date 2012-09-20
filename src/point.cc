@@ -33,3 +33,8 @@ bool operator!=(const Point& a, const Point& b)
 	return !(a == b);
 }
 
+int Point::distance(const Point& b) const
+{
+	return ((i-b.i)*(i-b.i)+(j-b.j)*(j-b.j));
+}
+

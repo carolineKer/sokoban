@@ -238,7 +238,7 @@ bool State::operator==(const State& a)
 	/*
 	for (it = this->boxes.begin(); it !=this->boxes.end(); it++)
 	{
-		std::cout << "boxes " << (*it).i << " " << (*it).j << std::endl;
+		std::cout << "boxes << (*it).i << " " << (*it).j << std::endl;
 	}
 
 	for (it = a.boxes.begin(); it !=a.boxes.end(); it++)
@@ -259,4 +259,34 @@ bool State::operator==(const State& a)
 bool State::operator!=(const State& a)
 {
 	return (!(*this==a));
+}
+
+std::set<Point> State::getBoxes() {
+	return boxes;
+}
+
+int State::euristic() {
+
+	// Return a number corresponding to the similarity between the current state and the final state
+	// Number computed with euclidian distance between boxes and goals
+
+	int distance = 0;
+	int min = 0;
+	int indice = 0;
+	std::set<Point>::const_iterator it_boxes(this->boxes.begin()), end(this->boxes.end());
+	std::vector<Point> goals = ground.getGoals();
+
+	for(;it_boxes != end; ++it_boxes) {
+		min = -1;
+		for(int i=0; i<goals.size();i++) {
+			if((*it_boxes).distance(goals[i])<min || min<0) {
+				min = (*it_boxes).distance(goals[i]);
+				indice = i;
+			}
+		}
+		distance += min;
+		goals.erase(goals.begin()+indice);
+	}
+
+	return distance;
 }

@@ -136,6 +136,14 @@ char Ground::operator()(const Point& here)
 	return __ground[here.i]->at(here.j);
 }
 	
+Point Ground::getInitialPosPlayer()
+{
+	return player;
+}
+
+vector<Point> Ground::getGoals() {
+	return goals;
+}
 
 //Well not really important...
 Ground::~Ground() {
