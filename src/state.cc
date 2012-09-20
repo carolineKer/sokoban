@@ -162,9 +162,9 @@ State* State::expand()
 							
 					}
 
-                                        // deadlock check:
-                                        Point* inv_dir = new Point(-DIR[i].i, -DIR[i].j);
-                                        bool hasDeadlock = isDeadlock(*it_b-DIR[i],*inv_dir,boxes);                                                                                
+					// deadlock check:
+					Point* inv_dir = new Point(-DIR[i].i, -DIR[i].j);
+					bool hasDeadlock = isDeadlock(*it_b-DIR[i],*inv_dir,boxes);                                                                                
 					if (repeated_state || hasDeadlock )
 					{
 						//std::cout << "Repeated state" << std::endl;
