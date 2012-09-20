@@ -5,6 +5,7 @@
 #include <vector>
 #include <set>
 #include <list>
+#include <queue>
 
 class State
 {
@@ -45,6 +46,14 @@ class State
 		
 		//Compute a distance between a State and the Final State
 		int euristic();
+
+		struct Compare {
+			bool operator()(State* a, State* b)
+			{
+				return (a->euristic() > b->euristic());
+			};
+		};
+
 		
 	
 	private:
@@ -83,9 +92,8 @@ class State
 		///////////////////////////////
 		//  LISTS
 		///////////////////////////////
-
 		//Contains the states wich must be expanded (because we are doing a BFS)
-		static std::list<State*> to_expand;
+		static std::priority_queue<State*, std::vector<State*>, State::Compare > to_expand;
 
 		//Contains all the already visited states
 		static std::list<State*> all_states;
@@ -96,11 +104,9 @@ class State
 		//True if the state is registered in all_states
 		bool is_in_all_list;
 
-		//If the state is registered in expand_list, points to the position of the state in the list.
-		std::list<State*>::iterator p_in_list;
-
 		//If the state is registered in all_list, points to the position of the state in the list.
 		std::list<State*>::iterator p_in_all_list;
 
 };
+
 #endif

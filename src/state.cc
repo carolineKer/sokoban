@@ -7,7 +7,7 @@
 
 
 //Contains the states wich must be expanded (because we are doing a BFS)
-std::list<State*> State::to_expand;
+std::priority_queue< State*, std::vector<State*>, State::Compare > State::to_expand;
 
 //Contains all the already visited states
 std::list<State*> State::all_states;
@@ -15,7 +15,9 @@ std::list<State*> State::all_states;
 /* Constructor for the initial state */
 State::State(const std::set<Point>& boxes, const Point& player):boxes(boxes),  
 	parent(NULL), 
-	is_in_all_list(true)
+	is_in_all_list(true),
+	is_in_expand_list(true)
+						
 {
 	const Point ground_size = ground.getSize();
 	reachable_area = new bool*[ground_size.i];
@@ -66,7 +68,6 @@ State::State(State& prev_state, const Point& moved_box, int dir):boxes(prev_stat
 	compute_reachable_area(moved_box+DIR[dir]);
 }
 
-
 void State::display()
 {
 	std::set<Point>::iterator it;
@@ -91,10 +92,17 @@ void State::display()
 	}
 }
 
+
+/* ! *\ The destruction is incorrect  */
 State::~State()
 {
 	if (is_in_expand_list)
-		this->remove_from_l();
+	{
+		std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
+		std::cout << "/*!*\\ Destroying a state which is registered in expand_list" << std::endl;
+		std::cout << "...Will segfault later... " << std::endl;
+		std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
+	}
 	const Point ground_size = ground.getSize();
 	for (int i = 0; i<ground_size.i; i++)
 	{
@@ -209,22 +217,16 @@ bool State::isFinal()
 
 State* State::nextStateToExpand() 
 {
-	State * to_return = to_expand.front();
-	to_expand.pop_front();
+	State * to_return = to_expand.top();
+	to_expand.pop();
+	to_return->is_in_expand_list = false;
 	return  to_return;
 }
 
 void State::add_to_l()
 {
-	to_expand.push_back(this);
-	p_in_list = to_expand.end() ;
-	p_in_list--;
-}
-
-void State::remove_from_l()
-{
-	is_in_expand_list = false;
-	to_expand.erase(p_in_list);
+	is_in_expand_list = true;
+	to_expand.push(this);
 }
 
 bool State::operator==(const State& a)
