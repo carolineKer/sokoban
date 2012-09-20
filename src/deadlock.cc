@@ -5,6 +5,10 @@
 #include <iostream>
 
 bool isDeadlock( const Point& p ,Point& dir ,const std::set<Point>& boxes){
+    // p:     is the location of the newly moved box
+    // dir:   is the direction p was pushed to 
+    // boxes: set of all boxes in the current state.
+    //
     //  surround is an char array of five elements
     //  it represent the following situation:
     //  
