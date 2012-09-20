@@ -238,6 +238,7 @@ bool State::operator==(const State& a)
 	/*
 	for (it = this->boxes.begin(); it !=this->boxes.end(); it++)
 	{
+		std::cout << "boxes " << (*it).i << " " << (*it).j << std::endl;
 		std::cout << "boxes << (*it).i << " " << (*it).j << std::endl;
 	}
 
