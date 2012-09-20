@@ -18,6 +18,8 @@ class State
 		~State();
 
 		//Print the reachable area for this state
+		void display_reachable_area();
+
 		void display();
 
 		//Returns the final state if it one found while expanding this state.

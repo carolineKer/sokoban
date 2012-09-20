@@ -70,6 +70,40 @@ State::State(State& prev_state, const Point& moved_box, int dir):boxes(prev_stat
 
 void State::display()
 {
+	Point ground_size = ground.getSize();
+	for (int i = 0; i< ground_size.i; i++)
+	{
+		for (int j =0; j<ground_size.j; j++)
+		{
+			std::set<Point>::iterator it;
+			it = boxes.find(Point(i,j));
+			bool is_box = (it!=boxes.end());
+			switch (ground(Point(i,j)))
+			{
+				case WALL:
+					std::cout << WALL;
+					break;
+				case EMPTY:
+					if (is_box)
+						std::cout << BOX;
+					else
+						std::cout << EMPTY;
+					break;
+				case GOAL:
+					if (is_box)
+						std::cout << B_ON_GOAL;
+					else
+						std::cout << GOAL;
+					break;
+			}
+		}
+		std::cout << std::endl;
+	}
+}
+
+
+void State::display_reachable_area()
+{
 	std::set<Point>::iterator it;
 	for (it = boxes.begin(); it!=boxes.end(); it++)
 	{
