@@ -7,6 +7,7 @@
 #include "point.h"
 #include "state.h"
 #include "case_type.h"
+#include "checker.h"
 
 
 using std::string;
@@ -42,6 +43,10 @@ class Ground {
 
 		bool isOut(const Point& here);
 		char operator()(const Point& here);
+
+		Point getInitialPosPlayer();
+
+		vector<Point> getGoals();
 
 	private:
 		//Current player position

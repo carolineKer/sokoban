@@ -39,6 +39,13 @@ class State
 
 		//Returns (and pop) the next states from to_expand_list
 		static State* nextStateToExpand();
+
+		//Getter to private set of boxes
+		std::set<Point> getBoxes();
+		
+		//Compute a distance between a State and the Final State
+		int euristic();
+		
 	
 	private:
 		std::set<Point> boxes;
@@ -52,7 +59,7 @@ class State
 		////////////////////////////////////////////////////////
 		Point moved_box;
 		int dir;
-		//Pointer to the previous state, NULL only this is the initial
+		//Pointer to the previous state, NULL only if this is the initial
 		//state
 		State * parent;
 
