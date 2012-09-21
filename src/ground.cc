@@ -24,7 +24,6 @@ bool Ground::rec_getPath(Point from, Point to, string& result, bool** visited_po
 	//We have arrived!
 	if (from.i == to.i && from.j == to.j)
 	{
-		std::cout << "OK" << std::endl;
 		return true;
 	}
 
@@ -173,10 +172,6 @@ bool Ground::getPath(Point from, Point to, string& result, const State& state)
 			visited_points[i][j] = false;
 	}
 	
-	cout << "Searching for a route from ("<< from.i << ","
-		<< from.j << ") to (" << to.i << "," << to.j << ")"
-		<< endl;
-
 	std::string reversed_result;
 	bool path_found = rec_getPath(from, to, reversed_result, visited_points, state);
 	if (!path_found)

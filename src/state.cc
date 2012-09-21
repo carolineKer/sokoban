@@ -362,26 +362,13 @@ std::string State::findSolutionString(State * final_state, State * initial_state
 		*/
         
 		//***********From one state to the next***************//
-		std::cout << "STATE FROM " << std::endl;
-		from_state->display();
-		std::cout << "STATE TO " << std::endl;
-		to_state->display();
 		Point goal = moved_box + DIR[dir];
-		std::cout << "*********TO Pushing position*****" << std::endl;
-		std::cout << "Player " << player_position.i << " " << player_position.j << std::endl;
-		std::cout <<" To pushing  " << goal.i << " " << goal.j << std::endl;
         std::string path_part;
 		ground.getPath(player_position,goal, path_part, *from_state);
-		std::cout << "Path " << path_part << std::endl;
 
 		player_position = goal;
 		goal = moved_box;
-		std::cout << "*********PUSH box************" << std::endl;
-		std::cout << "Try to find a path from " 
-			<< player_position.i << " " << player_position.j << std::endl;
-		std::cout <<" To :  " << goal.i << " " << goal.j << std::endl;
 		path_part.append( ground.addDirectionLetter(player_position, moved_box));
-		std::cout << "Path " << path_part << std::endl;
 		//**************************************************//
 
 		final_path.insert(0, path_part);

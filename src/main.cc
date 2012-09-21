@@ -58,10 +58,8 @@ int main(int pArgC, char* pArgs[])
 
 	while (curr_state != NULL)
 	{
-		curr_state->display();
 		curr_state = curr_state->getParentState();
 	}
-    
     
     //-------- Solution Pathfinding Test ------------
     std::string solutionPath = final_state->findSolutionString(final_state, &init);
