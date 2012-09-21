@@ -248,7 +248,7 @@ string Ground::findPath(const Point& from, const Point& to, const State& state)
     
     std::cout << "Start generating solution string!" << std::endl;
     
-    for(int i = 0; i < tempPath.size(); i++) path += addDirectionLetter(tempPath[i],tempPath[i+1]);
+    for(int i = 0; i < tempPath.size()-1; i++) path += addDirectionLetter(tempPath[i],tempPath[i+1]);
     
     return path;
 }
