@@ -64,10 +64,7 @@ int main(int pArgC, char* pArgs[])
     
     
     //-------- Solution Pathfinding Test ------------
-    /*
-    State * initial_state = &init;
-    std::string solutionPath = final_state->findSolutionString(final_state, initial_state);
-    */
+    std::string solutionPath = final_state->findSolutionString(final_state, &init);
     //------ END: Solution Pathfinding Test ---------
     
     //-------- Player Pathfinding Test -----------
@@ -91,14 +88,10 @@ int main(int pArgC, char* pArgs[])
     //std:string pathPlayerGoal = "R";
     //lSocket.WriteLine(pathPlayerGoal);
 
-    //we've found our solution    
-	std::string lMySol("U R R U U L D L L U L L D R R R R L D D R U R U D L L U R");
-	//these formats are also valid:
-	//std::string lMySol("URRUULDLLULLDRRRRLDDRURUDLLUR");
-    //std::string lMySol("0 3 3 0 0 2 1 2 2 0 2 2 1 3 3 3 3 2 1 1 3 0 3 0 1 2 2 0 3");
+	std::cout << solutionPath << std::endl;
 
     //send the solution to the server
-    lSocket.WriteLine(lMySol);
+    lSocket.WriteLine(solutionPath);
     
     //read answer from the server
     lSocket.ReadLine(lLine);

@@ -42,7 +42,7 @@ State::State(const std::set<Point>& boxes, const Point& player):boxes(boxes),
 	p_in_all_list--;
 }
 
-State::State(State& prev_state, const Point& moved_box, int dir):boxes(prev_state.boxes), parent(&prev_state), dir(dir), is_in_all_list(false), is_in_expand_list(false)
+State::State(State& prev_state, const Point& moved_box, int dir):boxes(prev_state.boxes), parent(&prev_state), dir(dir), is_in_all_list(false), is_in_expand_list(false), moved_box(moved_box)
 {
 	//std::cout << "Build a state move box " << moved_box.i << " " << moved_box.j
 	//	<< " direction :" << -DIR[dir].i << " " << -DIR[dir].j << std::endl;
@@ -336,27 +336,53 @@ std::string State::findSolutionString(State * final_state, State * initial_state
 {
     std::string final_path;
     
-    std::cout << "Initialstate: " << initial_state->moved_box.i << " " << initial_state->moved_box.j << std::endl;
-    std::cout << "Finalstate: " << final_state->moved_box.i << " " << final_state->moved_box.j << std::endl;
+	State * to_state = final_state;
+	State * from_state = to_state->parent;
     
-    State * curr_state = final_state;
-    
-    while (curr_state != NULL)
+    while (from_state != NULL)
 	{
-        Point start;
-        Point goal = curr_state->moved_box/*-DIR[curr_state->dir]*/;
+		State * parent_state = from_state->getParentState();
+		Point player_position;
+
+		if (parent_state == NULL) // <=> (curr_state == initial_state)
+		{
+			player_position = ground.getPlayer();
+		}
+		else
+		{
+			player_position = from_state->moved_box;
+		}
+
+		Point moved_box = to_state->moved_box;
+		int dir = to_state->dir;
         
-        State * prev_state = curr_state->getParentState();
-        if(prev_state == NULL) break;
-        if(curr_state == initial_state) start = ground.getPlayer();
-        else Point start = prev_state->moved_box/*-DIR[prev_state->dir]*/;
-        
+		/*
         std::cout << "Start Point: " << start.i << " " << start.j << std::endl;
         std::cout << "Goal Point: " << goal.i << " " << goal.j << std::endl;
+		*/
         
-        std::string path_part = ground.findPath(start,goal);
+		//***********From one state to the next***************//
+		Point goal = moved_box + DIR[dir];
+		std::cout << "*********TO Pushing position*****" << std::endl;
+		std::cout << "Try to find a path from " << player_position.i << " " << player_position.j << std::endl;
+		std::cout <<" To :  " << goal.i << " " << goal.j << std::endl;
+        std::string path_part = ground.findPath(player_position,goal);
+		std::cout << "Path " << path_part << std::endl;
+
+
+		player_position = goal;
+		goal = moved_box;
+		std::cout << "*********PUSH box************" << std::endl;
+		std::cout << "Try to find a path from " 
+			<< player_position.i << " " << player_position.j << std::endl;
+		std::cout <<" To :  " << goal.i << " " << goal.j << std::endl;
+		path_part.append(ground.findPath(player_position, goal));
+		std::cout << "Path " << path_part << std::endl;
+		//**************************************************//
+
 		final_path.insert(0, path_part);
-		curr_state = prev_state;
+		to_state = from_state;
+		from_state = parent_state;
 	}
     
     return final_path;
