@@ -237,18 +237,23 @@ string Ground::addDirectionLetter(const Point& from, const Point& next)
 
 string Ground::findPath(const Point& from, const Point& to, const State& state)
 {
-    std::cout << "Start finding path!" << std::endl;
     string path;
-    tempPath.clear();
-    deadends.clear();
-    tempPath.push_back(from);
-    explorePath(from, to, state);
     
-    std::cout << "Found path with " << tempPath.size() << " steps!" << std::endl;
-    
-    std::cout << "Start generating solution string!" << std::endl;
-    
-    for(int i = 0; i < tempPath.size()-1; i++) path += addDirectionLetter(tempPath[i],tempPath[i+1]);
+    if(from != to)
+    {
+        std::cout << "Start finding path!" << std::endl;
+        tempPath.clear();
+        deadends.clear();
+        tempPath.push_back(from);
+        explorePath(from, to, state);
+        
+        std::cout << "Found path with " << tempPath.size() << " steps!" << std::endl;
+        
+        std::cout << "Start generating solution string!" << std::endl;
+        
+        for(int i = 0; i < tempPath.size()-1; i++) path += addDirectionLetter(tempPath[i],tempPath[i+1]);
+    }
+    else path = "";
     
     return path;
 }
