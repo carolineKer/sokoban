@@ -192,7 +192,6 @@ State* State::expand()
 					if (all_states.find(s) != all_states.end())
 					{
 						repeated_state = true;
-						break;
 					}
 
 					// deadlock check:
@@ -240,9 +239,15 @@ bool State::isFinal()
 
 State* State::nextStateToExpand() 
 {
+	//std::cout << "Here" << std::endl;
+	assert(!to_expand.empty());
 	State * to_return = to_expand.top();
+	//std::cout << "Here1" << std::endl;
 	to_expand.pop();
+	//std::cout << "Here2" << std::endl;
+	//std::cout << to_return << std::endl;
 	to_return->is_in_expand_list = false;
+	//std::cout << "There" << std::endl;
 	return  to_return;
 }
 

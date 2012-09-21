@@ -43,7 +43,7 @@ int main(int pArgC, char* pArgs[])
 	while (final_state==NULL)
 	{
 		i++;
-		if (i%20==0)
+		if (i%1000==0)
 			std::cout << "Nodes " << i << std::endl;
 		State* to_expand = State::nextStateToExpand();
 		final_state = to_expand->expand();

@@ -8,6 +8,7 @@
 #include <queue>
 #include <string>
 #include <unordered_set>
+#include <iostream>
 
 class State
 {
@@ -80,6 +81,7 @@ class State
 				{
 					total += std::hash<int>()((*it_b).i) ^ std::hash<int>()((*it_b).j);
 				}
+				total += std::hash<int>()((state->max_pos).i) ^ std::hash<int>()((state->max_pos).j);
 				return total;
 			} ;
 		};
