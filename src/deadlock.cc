@@ -38,11 +38,11 @@ bool isDeadlock( const Point& p ,Point& dir ,const std::set<Point>& boxes){
     // relative to DIR[i]
     // left operator:  [ [0,-1], [ 1,0] ]
     // right operator: [ [0, 1], [-1,0] ] 
-    Point* right = new Point( dir.j,-dir.i);
-    Point* left  = new Point(-dir.j, dir.i);
+    Point right( dir.j,-dir.i);
+    Point left(-dir.j, dir.i);
 
     // list of direction around
-    Point dir_list[5] =  {dir,*right,dir+*right,*left,dir+*left};
+    Point dir_list[5] =  {dir,right,dir+right,left,dir+left};
 
     char surround[5];
 
