@@ -43,7 +43,10 @@ bool isDeadlock( const Point& p ,Point& dir ,const std::set<Point>& boxes){
 
     // list of direction around
     Point dir_list[5] =  {dir,*right,dir+*right,*left,dir+*left};
-    char* surround = new char[5];
+
+    char surround[5];
+
+    // fill the surround array
     for ( int iter=0 ; iter!=5 ; iter++ ){
         if (ground(p+dir_list[iter])==WALL){
             surround[iter] = WALL;
@@ -56,7 +59,7 @@ bool isDeadlock( const Point& p ,Point& dir ,const std::set<Point>& boxes){
         }
     }
 
-    char* in_pos = new char[3];
+    char in_pos[3];
     in_pos[0] = EMPTY; // empty space
     in_pos[1] = BOX; // a box
     in_pos[2] = WALL; // a wall
