@@ -61,11 +61,35 @@ int main(int pArgC, char* pArgs[])
 		curr_state->display();
 		curr_state = curr_state->getParentState();
 	}
-
-
-
     
-    //now, we should find a path from the player to any goal
+    
+    //-------- Solution Pathfinding Test ------------
+    /*
+    State * initial_state = &init;
+    std::string solutionPath = final_state->findSolutionString(final_state, initial_state);
+    */
+    //------ END: Solution Pathfinding Test ---------
+    
+    //-------- Player Pathfinding Test -----------
+    /*
+    std::string pathPlayerGoal;
+    std::vector<Point> goals = ground.getGoals();
+    Point player = ground.getPlayer();
+    
+    if(!goals.empty()){
+        Point testGoal = goals[0];
+        std::cout << "The player is at    " << player.i << " " <<player.j << std::endl;
+        std::cout << "The aimed goal is at" << testGoal.i << " " <<testGoal.j << std::endl;
+        pathPlayerGoal = ground.findPath(player,testGoal);
+    }
+    else std::cout << "There are no goals!" << std::endl;
+    */
+    //------ END: Player Pathfinding Test --------
+    
+    //std::cout << "Path to next goal: " << pathPlayerGoal << std::endl;
+    //std::cout << "Complete Solution Path: " << solutionPath << std::endl;
+    //std:string pathPlayerGoal = "R";
+    //lSocket.WriteLine(pathPlayerGoal);
 
     //we've found our solution    
 	std::string lMySol("U R R U U L D L L U L L D R R R R L D D R U R U D L L U R");

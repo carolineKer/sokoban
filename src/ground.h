@@ -36,17 +36,26 @@ class Ground {
 		State getInitialState();
 
 		bool isBlocked(const Point& here);
-
+        bool isPassable(const Point& here, const Point& last); //!!!
+        bool isDeadend(const Point& here); //!!!
+    
 		const Point& getSize() {
 			return ground_size;
 		};
 
 		bool isOut(const Point& here);
 		char operator()(const Point& here);
+    
+        Point getNextCell(const Point& from, const Point& to, const Point& last); //!!!
+        string addDirectionLetter(const Point& from, const Point& next); //!!!
+        string findPath(const Point& from, const Point& to); //!!!
+        void explorePath(const Point& from, const Point& to); //!!!
+        int calcManhattDist(const Point& a, const Point& b);
 
 		Point getInitialPosPlayer();
 
 		vector<Point> getGoals();
+        Point getPlayer();
 
 	private:
 		//Current player position
@@ -54,6 +63,8 @@ class Ground {
 		Point Ground_size;
 		vector<string *> __ground;
 		vector<Point> goals;
+        vector<Point> deadends; //!!!
+        vector<Point> tempPath; //!!!
 		set<Point> boxes;
 		Point ground_size;
 		vector<State *> next_states;

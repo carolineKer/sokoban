@@ -119,6 +119,11 @@ void Ground::display()
 
 }
 
+Point Ground::getPlayer()
+{
+    return player;
+}
+
 bool Ground::isOut(const Point& here)
 {
 	bool out= (here.i < 0 || here.j <0 || here.i > ground_size.i-1 || here.j > __ground[here.i]->size()-1);
@@ -143,6 +148,135 @@ Point Ground::getInitialPosPlayer()
 
 vector<Point> Ground::getGoals() {
 	return goals;
+}
+
+bool Ground::isDeadend(const Point& here)
+{
+    
+    bool isDeadend = false;
+    int i = 0;
+    while(i < deadends.size() && isDeadend == false)
+    {
+        if (here == deadends[i]) isDeadend = true;
+        i++;
+    }
+    
+    return isDeadend;
+}
+
+bool Ground::isPassable(const Point& here, const Point& last)
+{
+    
+    bool passable = (!isOut(here) && !isBlocked(here) && boxes.find(here) == boxes.end() && here != last && !isDeadend(here));
+    
+	return passable;
+}
+
+int Ground::calcManhattDist(const Point& a, const Point& b)
+{
+    
+    int distY = a.i-b.i;
+    int distX = a.j-b.j;
+    
+    if(distX < 0) distX = distX*-1;
+    if(distY < 0) distY = distY*-1;
+    
+    return (distX+distY);
+    
+}
+
+Point Ground::getNextCell(const Point& from, const Point& to, const Point& last)
+{
+    
+    Point next = from;
+    
+    int distY = from.i-to.i;
+    int distX = from.j-to.j;
+    
+    int passable[4];
+    
+    for (int i = 0; i<4; i++) passable[i] = ground.isPassable(from + DIR[i], last);
+    
+    if     (distX < 0 && passable[3]) next = from + RIGHT;
+    else if(distX > 0 && passable[1]) next = from + LEFT;
+    else if(distY < 0 && passable[2]) next = from + DOWN;
+    else if(distY > 0 && passable[0]) next = from + UP;
+    else{
+        for (int i = 0; i < 4; i++) {
+            if(passable[i] == true)
+            {
+                next = from+DIR[i];
+                break;
+            }
+        }
+    }
+    
+    
+    return next;
+}
+
+string Ground::addDirectionLetter(const Point& from, const Point& next)
+{
+    
+    string letter;
+    
+    if(next == (from+UP)) letter = "U";
+    if(next == (from+DOWN)) letter = "D";
+    if(next == (from+RIGHT)) letter = "R";
+    if(next == (from+LEFT)) letter = "L";
+    
+    return letter;
+}
+
+string Ground::findPath(const Point& from, const Point& to)
+{
+    std::cout << "Start finding path!" << std::endl;
+    string path;
+    tempPath.clear();
+    deadends.clear();
+    tempPath.push_back(from);
+    explorePath(from, to);
+    
+    std::cout << "Found path with " << tempPath.size() << " steps!" << std::endl;
+    
+    std::cout << "Start generating solution string!" << std::endl;
+    
+    for(int i = 0; i < tempPath.size(); i++) path += addDirectionLetter(tempPath[i],tempPath[i+1]);
+    
+    return path;
+}
+
+void Ground::explorePath(const Point& from, const Point& to)
+{
+    //std::cout << "Last place:  " << tempPath[tempPath.size()-2].i << " " << tempPath[tempPath.size()-2].j << std::endl;
+    //std::cout << "Current place:  " << from.i << " " << from.j << std::endl;
+    //std::cout << "Function start: Path size:  " << tempPath.size() << " steps!" << std::endl;
+    
+    
+    if(from != to)
+    {
+        Point next = getNextCell(from, to, tempPath[tempPath.size()-2]);
+        if(next != from)
+        {
+            //std::cout << "Found next cell!" << std::endl;
+            tempPath.push_back(next);
+            //std::cout << "Function End: Path size:  " << tempPath.size() << " steps!" << std::endl;
+            //std::cout << "Next place:  " << next.i << " " << next.j << std::endl;
+            explorePath(next, to);
+            
+        }
+        else
+        {
+            //std::cout << "This is a deadend!" << std::endl;
+            deadends.push_back(from);
+            tempPath.pop_back();
+            //std::cout << "Function End: Path size:  " << tempPath.size() << " steps!" << std::endl;
+            next = tempPath[tempPath.size()-1];
+            //std::cout << "Back to place:  " << next.i << " " << next.j << std::endl;
+            explorePath(next, to);
+        }
+    }
+    else std::cout << "Reached aim!" << std::endl;
 }
 
 //Well not really important...

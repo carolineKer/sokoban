@@ -331,3 +331,34 @@ int State::euristic() {
 
 	return distance;
 }
+
+std::string State::findSolutionString(State * final_state, State * initial_state)
+{
+    std::string final_path;
+    
+    std::cout << "Initialstate: " << initial_state->moved_box.i << " " << initial_state->moved_box.j << std::endl;
+    std::cout << "Finalstate: " << final_state->moved_box.i << " " << final_state->moved_box.j << std::endl;
+    
+    State * curr_state = final_state;
+    
+    while (curr_state != NULL)
+	{
+        Point start;
+        Point goal = curr_state->moved_box/*-DIR[curr_state->dir]*/;
+        
+        State * prev_state = curr_state->getParentState();
+        if(prev_state == NULL) break;
+        if(curr_state == initial_state) start = ground.getPlayer();
+        else Point start = prev_state->moved_box/*-DIR[prev_state->dir]*/;
+        
+        std::cout << "Start Point: " << start.i << " " << start.j << std::endl;
+        std::cout << "Goal Point: " << goal.i << " " << goal.j << std::endl;
+        
+        std::string path_part = ground.findPath(start,goal);
+		final_path.insert(0, path_part);
+		curr_state = prev_state;
+	}
+    
+    return final_path;
+    
+}

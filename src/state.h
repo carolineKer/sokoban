@@ -19,6 +19,8 @@ class State
 
 		//Print the reachable area for this state
 		void display_reachable_area();
+    
+        std::string findSolutionString(State * final_state, State * initial_state); //!!!
 
 		void display();
 
