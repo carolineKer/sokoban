@@ -38,6 +38,8 @@ class Ground {
 		bool isBlocked(const Point& here);
         bool isPassable(const Point& here, const State& state); //!!!
         bool isDeadend(const Point& here); //!!!
+		bool getPath(Point from, Point to, string& result, const State& state);
+		bool rec_getPath(Point from, Point to, string& result, bool** visited_points, const State& state);
     
 		const Point& getSize() {
 			return ground_size;

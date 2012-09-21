@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cassert>
 #include "ground.h" 
+#include <cstdlib>
 
 using std::cout;
 using std::endl;
@@ -13,6 +14,73 @@ Ground::Ground()
 	player.j = -1;
 	ground_size.i = 0;
 	ground_size.j = 0;
+}
+
+
+bool Ground::rec_getPath(Point from, Point to, string& result, bool** visited_points, const State& state)
+{
+	visited_points[from.i][from.j] = true;
+
+	//We have arrived!
+	if (from.i == to.i && from.j == to.j)
+	{
+		std::cout << "OK" << std::endl;
+		return true;
+	}
+
+	//Check the four directions
+	Point next;
+
+	//Down
+	next.i = from.i + 1;
+	next.j = from.j;
+	if (!isOut(next) && isPassable(next, state) && !visited_points[next.i][next.j]) {
+		if (rec_getPath(next, to, result, visited_points, state))
+		{
+			std::cout << "D" << std::endl;
+			result.append("D");
+			return true;
+		}
+	}
+	
+	//Up
+	next.i = from.i - 1;
+	next.j = from.j;
+	if (!isOut(next) && isPassable(next, state) && !visited_points[next.i][next.j]) {
+		if (rec_getPath(next, to, result, visited_points, state))
+		{
+			std::cout << "U" << std::endl;
+			result.append("U");
+			return true;
+		}
+	}
+
+	//Left
+	next.i = from.i;
+	next.j = from.j-1;
+	if (!isOut(next) && isPassable(next, state) && !visited_points[next.i][next.j]) {
+		if (rec_getPath(next, to, result, visited_points, state))
+		{
+			std::cout << "L" << std::endl;
+			result.append("L");
+			return true;
+		}
+	}
+
+	//Right
+	next.i = from.i;
+	next.j = from.j + 1;
+	if (!isOut(next) && isPassable(next, state) && !visited_points[next.i][next.j]) {
+		if (rec_getPath(next, to, result, visited_points, state))
+		{
+			std::cout << "R" << std::endl;
+			result.append("R");
+			return true;
+		}
+	}
+
+	//We couldn't find a route from this point
+	return false;
 }
 
 //Add a row to the Ground (rows must be added from top to bottom)
@@ -99,6 +167,48 @@ State Ground::getInitialState()
 {
 	return State(boxes, player);
 }
+
+bool Ground::getPath(Point from, Point to, string& result, const State& state)
+{
+	bool ** visited_points = (bool**)malloc(ground_size.i*sizeof(bool*));
+	for (int i = 0; i<ground_size.i; i++)
+	{
+		visited_points[i] = (bool*)malloc(ground_size.j*sizeof(bool));
+		for (int j = 0; j <ground_size.j; j++)
+			visited_points[i][j] = false;
+	}
+	
+	cout << "Searching for a route from ("<< from.i << ","
+		<< from.j << ") to (" << to.i << "," << to.j << ")"
+		<< endl;
+
+	std::string reversed_result;
+	if (rec_getPath(from, to, reversed_result, visited_points, state) == false)
+	{
+		std::cout << "XXX NO" << std::endl;
+	}
+	else
+	{
+		std::cout << "XXX YES" << std::endl;
+	}
+
+	std::cout << "Solution: " << reversed_result << std::endl;
+
+	//We must reversed the string !
+	int str_size = reversed_result.size();
+	for (int i = str_size-1; i>-1; i--)
+	{
+		const char c = reversed_result[i];
+		result.push_back(c);
+	}
+
+	for (int i = 0; i<ground_size.i; i++)
+		free(visited_points[i]);
+	free(visited_points);
+
+	return true;
+}
+
 
 void Ground::display()
 {

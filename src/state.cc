@@ -370,7 +370,13 @@ std::string State::findSolutionString(State * final_state, State * initial_state
 		std::cout << "*********TO Pushing position*****" << std::endl;
 		std::cout << "Player " << player_position.i << " " << player_position.j << std::endl;
 		std::cout <<" To pushing  " << goal.i << " " << goal.j << std::endl;
-        std::string path_part = ground.findPath(player_position,goal, *from_state);
+        std::string path_part;
+		if (ground.getPath(player_position,goal, path_part, *from_state))
+		{
+			std::cout << "FOUND PATH" << std::endl;
+		}
+		else
+			std::cout << "NO PATH " << std::endl;
 		std::cout << "Path " << path_part << std::endl;
 
 
