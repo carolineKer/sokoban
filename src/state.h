@@ -7,6 +7,7 @@
 #include <list>
 #include <queue>
 #include <string>
+#include <unordered_set>
 
 class State
 {
@@ -62,7 +63,26 @@ class State
 			};
 		};
 
-		
+		struct Equality {
+			bool operator()(State* a, State* b) const
+			{
+				return ((*a)==(*b));
+			};
+		};
+
+		struct Hash_X{
+			size_t operator()(const State *state) const {
+
+				std::set<Point>::iterator it_b;
+				int total = 0;
+
+				for (it_b = state->boxes.begin(); it_b != state->boxes.end(); it_b++)
+				{
+					total += std::hash<int>()((*it_b).i) ^ std::hash<int>()((*it_b).j);
+				}
+				return total;
+			} ;
+		};
 	
 	private:
 		std::set<Point> boxes;
@@ -104,7 +124,7 @@ class State
 		static std::priority_queue<State*, std::vector<State*>, State::Compare > to_expand;
 
 		//Contains all the already visited states
-		static std::list<State*> all_states;
+		static std::unordered_set<State*, State::Hash_X, State::Equality> all_states;
 		
 		//True if the state is registered in to_expand
 		bool is_in_expand_list;
@@ -112,8 +132,7 @@ class State
 		//True if the state is registered in all_states
 		bool is_in_all_list;
 
-		//If the state is registered in all_list, points to the position of the state in the list.
-		std::list<State*>::iterator p_in_all_list;
+
 
 };
 

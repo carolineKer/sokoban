@@ -9,8 +9,8 @@
 //Contains the states wich must be expanded (because we are doing a BFS)
 std::priority_queue< State*, std::vector<State*>, State::Compare > State::to_expand;
 
-//Contains all the already visited states
-std::list<State*> State::all_states;
+//Contains all the already visited state
+std::unordered_set<State*, State::Hash_X, State::Equality> State::all_states;
 
 /* Constructor for the initial state */
 State::State(const std::set<Point>& boxes, const Point& player):boxes(boxes),  
@@ -37,9 +37,7 @@ State::State(const std::set<Point>& boxes, const Point& player):boxes(boxes),
 
 	compute_reachable_area(player);
 	this->add_to_l();
-	all_states.push_back(this);
-	p_in_all_list = all_states.end() ;
-	p_in_all_list--;
+	all_states.insert(this);
 }
 
 State::State(State& prev_state, const Point& moved_box, int dir):boxes(prev_state.boxes), parent(&prev_state), dir(dir), is_in_all_list(false), is_in_expand_list(false), moved_box(moved_box)
@@ -130,7 +128,7 @@ void State::display_reachable_area()
 /* ! *\ The destruction is incorrect  */
 State::~State()
 {
-	if (is_in_expand_list)
+	if (is_in_expand_list || is_in_all_list)
 	{
 		std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
 		std::cout << "/*!*\\ Destroying a state which is registered in expand_list" << std::endl;
@@ -142,8 +140,6 @@ State::~State()
 	{
 		delete[] reachable_area[i];
 	}
-	if (is_in_all_list)
-		all_states.erase(p_in_all_list);
 }
 
 void State::compute_reachable_area(const Point& from)
@@ -191,17 +187,12 @@ State* State::expand()
 					//std::cout << "Build new state" << std::endl;
 					State * s = new State(*this, *it_b, i);
 					//std::cout << "New state built" << std::endl;
-					std::list<State*>::iterator it_states;
 					bool repeated_state = false;
 					//std::cout << "Compare with all states" << std::endl;
-					for (it_states=all_states.begin(); it_states!=all_states.end(); it_states++)
+					if (all_states.find(s) != all_states.end())
 					{
-						if (**it_states == *s)
-						{
-							repeated_state = true;
-							break;
-						}
-							
+						repeated_state = true;
+						break;
 					}
 
 					// deadlock check:
@@ -216,9 +207,7 @@ State* State::expand()
 					{
 						//std::cout << "XXX Interesting state Add to queue" << std::endl;
 					}
-					all_states.push_back(s);
-					s->p_in_all_list = all_states.end() ;
-					s->p_in_all_list--;
+					all_states.insert(s);
 					s->is_in_all_list = true;
 					s->add_to_l();
 
