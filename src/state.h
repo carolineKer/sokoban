@@ -6,6 +6,7 @@
 #include <set>
 #include <list>
 #include <queue>
+#include <string>
 
 class State
 {
