@@ -48,6 +48,9 @@ class State
 
 		//Getter to private set of boxes
 		std::set<Point> getBoxes();
+
+		//Getter to a const reference to the box
+		const std::set<Point>& getBoxesRef() const {return boxes;};
 		
 		//Compute a distance between a State and the Final State
 		int euristic();

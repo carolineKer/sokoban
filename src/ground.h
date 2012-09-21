@@ -36,7 +36,7 @@ class Ground {
 		State getInitialState();
 
 		bool isBlocked(const Point& here);
-        bool isPassable(const Point& here); //!!!
+        bool isPassable(const Point& here, const State& state); //!!!
         bool isDeadend(const Point& here); //!!!
     
 		const Point& getSize() {
@@ -46,10 +46,10 @@ class Ground {
 		bool isOut(const Point& here);
 		char operator()(const Point& here);
     
-        Point getNextCell(const Point& from, const Point& to); //!!!
+        Point getNextCell(const Point& from, const Point& to, const State& state); //!!!
         string addDirectionLetter(const Point& from, const Point& next); //!!!
-        string findPath(const Point& from, const Point& to); //!!!
-        void explorePath(const Point& from, const Point& to); //!!!
+        string findPath(const Point& from, const Point& to, const State& state); //!!!
+        void explorePath(const Point& from, const Point& to, const State& state); //!!!
         int calcManhattDist(const Point& a, const Point& b);
 
 		Point getInitialPosPlayer();

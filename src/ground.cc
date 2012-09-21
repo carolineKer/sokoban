@@ -164,7 +164,7 @@ bool Ground::isDeadend(const Point& here)
     return isDeadend;
 }
 
-bool Ground::isPassable(const Point& here)
+bool Ground::isPassable(const Point& here, const State& state)
 {
     bool hasBeenVisited = false;
     for(int i = 0; i < tempPath.size(); i++){
@@ -174,7 +174,7 @@ bool Ground::isPassable(const Point& here)
         }
     }
     
-    bool passable = (!isOut(here) && !isBlocked(here) && boxes.find(here) == boxes.end() && !hasBeenVisited && !isDeadend(here));
+    bool passable = (!isOut(here) && !isBlocked(here) && state.getBoxesRef().find(here) == state.getBoxesRef().end() && !hasBeenVisited && !isDeadend(here));
     
 	return passable;
 }
@@ -192,7 +192,7 @@ int Ground::calcManhattDist(const Point& a, const Point& b)
     
 }
 
-Point Ground::getNextCell(const Point& from, const Point& to)
+Point Ground::getNextCell(const Point& from, const Point& to, const State& state)
 {
     
     Point next = from;
@@ -202,7 +202,7 @@ Point Ground::getNextCell(const Point& from, const Point& to)
     
     int passable[4];
     
-    for (int i = 0; i<4; i++) passable[i] = ground.isPassable(from + DIR[i]);
+    for (int i = 0; i<4; i++) passable[i] = ground.isPassable(from + DIR[i], state);
     
     if     (distX < 0 && passable[3]) next = from + RIGHT;
     else if(distX > 0 && passable[1]) next = from + LEFT;
@@ -235,14 +235,14 @@ string Ground::addDirectionLetter(const Point& from, const Point& next)
     return letter;
 }
 
-string Ground::findPath(const Point& from, const Point& to)
+string Ground::findPath(const Point& from, const Point& to, const State& state)
 {
     std::cout << "Start finding path!" << std::endl;
     string path;
     tempPath.clear();
     deadends.clear();
     tempPath.push_back(from);
-    explorePath(from, to);
+    explorePath(from, to, state);
     
     std::cout << "Found path with " << tempPath.size() << " steps!" << std::endl;
     
@@ -253,7 +253,7 @@ string Ground::findPath(const Point& from, const Point& to)
     return path;
 }
 
-void Ground::explorePath(const Point& from, const Point& to)
+void Ground::explorePath(const Point& from, const Point& to, const State& state)
 {
     //std::cout << "Last place:  " << tempPath[tempPath.size()-2].i << " " << tempPath[tempPath.size()-2].j << std::endl;
     //std::cout << "Current place:  " << from.i << " " << from.j << std::endl;
@@ -262,7 +262,7 @@ void Ground::explorePath(const Point& from, const Point& to)
     
     if(from != to)
     {
-        Point next = getNextCell(from, to);
+        Point next = getNextCell(from, to, state);
         
         if(next != from)
         {
@@ -270,7 +270,7 @@ void Ground::explorePath(const Point& from, const Point& to)
             tempPath.push_back(next);
             std::cout << "Function End: Path size:  " << tempPath.size() << " steps!" << std::endl;
             std::cout << "Next place:  " << next.i << " " << next.j << std::endl;
-            explorePath(next, to);
+            explorePath(next, to, state);
             
         }
         else
@@ -288,7 +288,7 @@ void Ground::explorePath(const Point& from, const Point& to)
                 std::cout << "Function End: Path size:  " << tempPath.size() << " steps!" << std::endl;
                 next = tempPath[tempPath.size()-1];
                 std::cout << "Back to place:  " << next.i << " " << next.j << std::endl;
-                explorePath(next, to);
+                explorePath(next, to, state);
             }
         }
     }
