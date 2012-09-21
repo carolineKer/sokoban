@@ -88,7 +88,7 @@ int main(int pArgC, char* pArgs[])
     //std:string pathPlayerGoal = "R";
     //lSocket.WriteLine(pathPlayerGoal);
 
-	std::cout << solutionPath << std::endl;
+	std::cout << "Solution path " << solutionPath << std::endl;
 
     //send the solution to the server
     lSocket.WriteLine(solutionPath);
