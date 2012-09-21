@@ -255,7 +255,13 @@ void Ground::explorePath(const Point& from, const Point& to)
     
     if(from != to)
     {
-        Point next = getNextCell(from, to, tempPath[tempPath.size()-2]);
+        Point next;
+        if(tempPath.size() >= 2) next = getNextCell(from, to, tempPath[tempPath.size()-2]);
+        else{
+            Point dummy;
+            next = getNextCell(from, to, dummy);
+        }
+        
         if(next != from)
         {
             //std::cout << "Found next cell!" << std::endl;
