@@ -37,7 +37,6 @@ bool Ground::rec_getPath(Point from, Point to, string& result, bool** visited_po
 	if (!isOut(next) && isPassable(next, state) && !visited_points[next.i][next.j]) {
 		if (rec_getPath(next, to, result, visited_points, state))
 		{
-			std::cout << "D" << std::endl;
 			result.append("D");
 			return true;
 		}
@@ -49,7 +48,6 @@ bool Ground::rec_getPath(Point from, Point to, string& result, bool** visited_po
 	if (!isOut(next) && isPassable(next, state) && !visited_points[next.i][next.j]) {
 		if (rec_getPath(next, to, result, visited_points, state))
 		{
-			std::cout << "U" << std::endl;
 			result.append("U");
 			return true;
 		}
@@ -61,7 +59,6 @@ bool Ground::rec_getPath(Point from, Point to, string& result, bool** visited_po
 	if (!isOut(next) && isPassable(next, state) && !visited_points[next.i][next.j]) {
 		if (rec_getPath(next, to, result, visited_points, state))
 		{
-			std::cout << "L" << std::endl;
 			result.append("L");
 			return true;
 		}
@@ -73,7 +70,6 @@ bool Ground::rec_getPath(Point from, Point to, string& result, bool** visited_po
 	if (!isOut(next) && isPassable(next, state) && !visited_points[next.i][next.j]) {
 		if (rec_getPath(next, to, result, visited_points, state))
 		{
-			std::cout << "R" << std::endl;
 			result.append("R");
 			return true;
 		}
@@ -134,7 +130,6 @@ bool Ground::addRow(const string& col) {
 	tmp.j = -1;
 	while ((tmp.j = col_to_save->find(BOX, tmp.j+1))!=string::npos)
 	{
-		//std::cout <<"Found a box" << std::endl;
 		tmp.i = __ground.size();
 		boxes.insert(tmp);	
 		(*col_to_save)[tmp.j] = EMPTY;
@@ -183,16 +178,15 @@ bool Ground::getPath(Point from, Point to, string& result, const State& state)
 		<< endl;
 
 	std::string reversed_result;
-	if (rec_getPath(from, to, reversed_result, visited_points, state) == false)
+	bool path_found = rec_getPath(from, to, reversed_result, visited_points, state);
+	if (!path_found)
 	{
-		std::cout << "XXX NO" << std::endl;
+		std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
+		std::cout << "************ERROR****************" << std::endl;
+		std::cout << " IMPOSSIBLE TO FIND A PATH" << std::endl;
+		std::cout << " IT SHOULD NEVER HAPPEN" << std::endl;
+		std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
 	}
-	else
-	{
-		std::cout << "XXX YES" << std::endl;
-	}
-
-	std::cout << "Solution: " << reversed_result << std::endl;
 
 	//We must reversed the string !
 	int str_size = reversed_result.size();
