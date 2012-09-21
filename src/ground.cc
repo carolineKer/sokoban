@@ -164,10 +164,17 @@ bool Ground::isDeadend(const Point& here)
     return isDeadend;
 }
 
-bool Ground::isPassable(const Point& here, const Point& last)
+bool Ground::isPassable(const Point& here)
 {
+    bool hasBeenVisited = false;
+    for(int i = 0; i < tempPath.size(); i++){
+        if(here == tempPath[i]){
+            hasBeenVisited = true;
+            break;
+        }
+    }
     
-    bool passable = (!isOut(here) && !isBlocked(here) && boxes.find(here) == boxes.end() && here != last && !isDeadend(here));
+    bool passable = (!isOut(here) && !isBlocked(here) && boxes.find(here) == boxes.end() && !hasBeenVisited && !isDeadend(here));
     
 	return passable;
 }
@@ -185,7 +192,7 @@ int Ground::calcManhattDist(const Point& a, const Point& b)
     
 }
 
-Point Ground::getNextCell(const Point& from, const Point& to, const Point& last)
+Point Ground::getNextCell(const Point& from, const Point& to)
 {
     
     Point next = from;
@@ -195,7 +202,7 @@ Point Ground::getNextCell(const Point& from, const Point& to, const Point& last)
     
     int passable[4];
     
-    for (int i = 0; i<4; i++) passable[i] = ground.isPassable(from + DIR[i], last);
+    for (int i = 0; i<4; i++) passable[i] = ground.isPassable(from + DIR[i]);
     
     if     (distX < 0 && passable[3]) next = from + RIGHT;
     else if(distX > 0 && passable[1]) next = from + LEFT;
@@ -255,31 +262,34 @@ void Ground::explorePath(const Point& from, const Point& to)
     
     if(from != to)
     {
-        Point next;
-        if(tempPath.size() >= 2) next = getNextCell(from, to, tempPath[tempPath.size()-2]);
-        else{
-            Point dummy;
-            next = getNextCell(from, to, dummy);
-        }
+        Point next = getNextCell(from, to);
         
         if(next != from)
         {
-            //std::cout << "Found next cell!" << std::endl;
+            std::cout << "Found next cell!" << std::endl;
             tempPath.push_back(next);
-            //std::cout << "Function End: Path size:  " << tempPath.size() << " steps!" << std::endl;
-            //std::cout << "Next place:  " << next.i << " " << next.j << std::endl;
+            std::cout << "Function End: Path size:  " << tempPath.size() << " steps!" << std::endl;
+            std::cout << "Next place:  " << next.i << " " << next.j << std::endl;
             explorePath(next, to);
             
         }
         else
         {
-            //std::cout << "This is a deadend!" << std::endl;
-            deadends.push_back(from);
-            tempPath.pop_back();
-            //std::cout << "Function End: Path size:  " << tempPath.size() << " steps!" << std::endl;
-            next = tempPath[tempPath.size()-1];
-            //std::cout << "Back to place:  " << next.i << " " << next.j << std::endl;
-            explorePath(next, to);
+            if(from == ground.getPlayer())
+            {
+                std::cout << "There is no pathway to this goal yet!" << std::endl;
+                return;
+            }
+            else
+            {
+                std::cout << "This is a deadend!" << std::endl;
+                deadends.push_back(from);
+                tempPath.pop_back();
+                std::cout << "Function End: Path size:  " << tempPath.size() << " steps!" << std::endl;
+                next = tempPath[tempPath.size()-1];
+                std::cout << "Back to place:  " << next.i << " " << next.j << std::endl;
+                explorePath(next, to);
+            }
         }
     }
     else std::cout << "Reached aim!" << std::endl;

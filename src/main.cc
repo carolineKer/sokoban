@@ -71,34 +71,34 @@ int main(int pArgC, char* pArgs[])
     //------ END: Solution Pathfinding Test ---------
     
     //-------- Player Pathfinding Test -----------
-    
+    /*
     std::string pathPlayerGoal;
     std::vector<Point> goals = ground.getGoals();
     Point player = ground.getPlayer();
     
     if(!goals.empty()){
         Point testGoal = goals[0];
-        std::cout << "The player is at    " << player.i << " " <<player.j << std::endl;
-        std::cout << "The aimed goal is at" << testGoal.i << " " <<testGoal.j << std::endl;
+        std::cout << "The player is at     " << player.i << " " <<player.j << std::endl;
+        std::cout << "The aimed goal is at " << testGoal.i << " " <<testGoal.j << std::endl;
         pathPlayerGoal = ground.findPath(player,testGoal);
     }
     else std::cout << "There are no goals!" << std::endl;
-    
+    */
     //------ END: Player Pathfinding Test --------
     
-    std::cout << "Path to next goal: " << pathPlayerGoal << std::endl;
+    //std::cout << "Path to next goal: " << pathPlayerGoal << std::endl;
     //std::cout << "Complete Solution Path: " << solutionPath << std::endl;
     //std:string pathPlayerGoal = "R";
-    lSocket.WriteLine(pathPlayerGoal);
+    //lSocket.WriteLine(pathPlayerGoal);
 
     //we've found our solution    
-	//std::string lMySol("U R R U U L D L L U L L D R R R R L D D R U R U D L L U R");
+	std::string lMySol("U R R U U L D L L U L L D R R R R L D D R U R U D L L U R");
 	//these formats are also valid:
 	//std::string lMySol("URRUULDLLULLDRRRRLDDRURUDLLUR");
     //std::string lMySol("0 3 3 0 0 2 1 2 2 0 2 2 1 3 3 3 3 2 1 1 3 0 3 0 1 2 2 0 3");
 
     //send the solution to the server
-    //lSocket.WriteLine(lMySol);
+    lSocket.WriteLine(lMySol);
     
     //read answer from the server
     lSocket.ReadLine(lLine);
