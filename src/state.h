@@ -60,7 +60,7 @@ class State
 		struct Compare {
 			bool operator()(State* a, State* b)
 			{
-				return (a->euristic() > b->euristic());
+				return (a->depth + a->euristic() > b->depth + b->euristic());
 			};
 		};
 
@@ -88,6 +88,8 @@ class State
 	
 	private:
 		std::set<Point> boxes;
+
+		int depth;
 
 		////////////////////////////////////////////////////////
 		//  FROM PARENT: if this state is not the initial state,

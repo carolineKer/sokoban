@@ -16,7 +16,8 @@ std::unordered_set<State*, State::Hash_X, State::Equality> State::all_states;
 State::State(const std::set<Point>& boxes, const Point& player):boxes(boxes),  
 	parent(NULL), 
 	is_in_all_list(true),
-	is_in_expand_list(true)
+	is_in_expand_list(true),
+	depth(0)
 						
 {
 	const Point ground_size = ground.getSize();
@@ -44,6 +45,8 @@ State::State(State& prev_state, const Point& moved_box, int dir):boxes(prev_stat
 {
 	//std::cout << "Build a state move box " << moved_box.i << " " << moved_box.j
 	//	<< " direction :" << -DIR[dir].i << " " << -DIR[dir].j << std::endl;
+	
+	depth = parent->depth+1;
  	const Point ground_size = ground.getSize();
 	reachable_area = new bool*[ground_size.i];
 	for (int i = 0; i<ground_size.i; i++)
