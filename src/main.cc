@@ -34,6 +34,11 @@ int main(int pArgC, char* pArgs[])
 
 	std::cout << "---- Display map ----" << std::endl;
 	ground.display();
+	ground.findTunnel();
+	std::cout << "---- Display annoted map ----" << std::endl;
+	ground.display();
+	exit(0);
+
 	std::cout << "---- Display initial state ----" <<std::endl;
 	State init = ground.getInitialState();
 	init.display();

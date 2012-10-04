@@ -33,6 +33,9 @@ class Ground {
 
 		void display();
 
+		void findTunnel();
+		bool isEmpty(const Point& p);
+
 		State getInitialState();
 
 		bool isBlocked(const Point& here);
@@ -58,6 +61,8 @@ class Ground {
 
 		vector<Point> getGoals();
         Point getPlayer();
+
+		void propagate_dead(const Point& p);
 
 	private:
 		//Current player position

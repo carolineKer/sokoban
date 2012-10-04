@@ -16,6 +16,103 @@ Ground::Ground()
 	ground_size.j = 0;
 }
 
+bool Ground::isEmpty(const Point &p)
+{
+	return (ground(p)== EMPTY || ground(p) == 'X' || ground(p) == 'D'
+			|| ground(p) =='T');
+}
+
+void Ground::findTunnel()
+{
+	std::cout << "Searching for tunnel" << std::endl;
+
+	//////////////////////////////////////////////
+	//First Pass detects this three configurations:
+	//////////////////////////////////////////////
+	//D: # Dead because in a corner
+	//  #D
+	//
+	//X: # Dead because tree directions are blocked
+	//  #X#
+	//
+	//T: #T# a tunnel
+	for (int i = 0; i < ground_size.i; i++)
+	{
+		for (int j = 0; j<ground_size.j ; j++)
+		{
+			if (__ground[i]->at(j) == WALL || __ground[i]->at(j)==GOAL)
+			{
+				continue;
+			}
+			//Tunnel -->one direction is blocked
+			//Dead end --> three directions are blocked
+			Point dir[2] = {UP, LEFT};
+			bool twoDirBlocked = false;
+			bool oneDirBlocked = false;
+			bool dead = false;
+
+			for (int k= 0; k<2; k++)
+			{
+				Point main_dir = Point(i,j)+dir[k];
+				Point inv_dir = Point(i,j)-dir[k];
+				bool main_block = isOut(main_dir) || (ground(main_dir)==WALL);
+				bool inv_block = isOut(inv_dir) || (ground(inv_dir)==WALL);
+				if (main_block && inv_block)
+					twoDirBlocked = true;
+				else if (main_block || inv_block)
+				{
+					if (oneDirBlocked)
+						dead = true;
+					else
+						oneDirBlocked = true;
+				}
+
+			}
+
+			if (twoDirBlocked && oneDirBlocked)
+				__ground[i]->replace(j,1,1,'X');
+			else if (dead)
+				__ground[i]->replace(j,1,1,'D');
+			else if (twoDirBlocked)
+				__ground[i]->replace(j,1,1,'T');
+		}
+	}
+	//////////////////////////////////////////////
+	//Second Pass: detect dead tunnels
+	//////////////////////////////////////////////
+	//--> A tunnel near a X is dead:
+	//   # 
+	//  #X#
+	//  #T#
+	for (int i = 0; i<ground_size.i; i++)
+	{
+		for (int j = 0; j<ground_size.j; j++)
+		{
+			if (__ground[i]->at(j) == 'X' || __ground[i]->at(j) == 'D')
+			{
+				propagate_dead(Point(i,j));
+			}
+		}
+	}
+	std::cout << "En of tunnel search" << std::endl;
+}
+
+void Ground::propagate_dead(const Point& p)
+{
+	for (int k= 0; k <4 ; k++)
+	{
+		Point n = p+DIR[k];
+		if (isOut(n)) continue;
+		if (ground(n)=='T')
+		{
+			__ground[n.i]->at(n.j) = 'X';
+			propagate_dead(n);
+		}
+	}
+}
+
+
+
 
 bool Ground::rec_getPath(Point from, Point to, string& result, bool** visited_points, const State& state)
 {

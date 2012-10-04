@@ -120,6 +120,11 @@ class State
 		Point max_pos;
 		void compute_reachable_area(const Point& from);
 
+		//A corral is an area that the player can't reach (!!!! in the following picture:)
+		//##################
+		//#!!!!!!$  @
+		//#################
+		bool isInCorral(const Point& p);
 
 		///////////////////////////////
 		//  LISTS
@@ -135,6 +140,7 @@ class State
 
 		//True if the state is registered in all_states
 		bool is_in_all_list;
+
 
 
 

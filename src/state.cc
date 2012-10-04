@@ -171,6 +171,8 @@ void State::compute_reachable_area(const Point& from)
 	}
 }
 
+
+
 State* State::expand()
 {
 	std::set<Point>::iterator it_b;
@@ -185,7 +187,8 @@ State* State::expand()
 			{
 				std::set<Point>::iterator it;
 				it = boxes.find(*it_b-DIR[i]);
-				if ((ground(*it_b-DIR[i])==GOAL || ground(*it_b-DIR[i])==EMPTY) && it == boxes.end())
+				if ((ground(*it_b-DIR[i])==GOAL || ground(*it_b-DIR[i])==EMPTY || ground(*it_b-DIR[i])=='T')
+						&& it == boxes.end())
 				{
 					//std::cout << "Build new state" << std::endl;
 					State * s = new State(*this, *it_b, i);
@@ -200,6 +203,16 @@ State* State::expand()
 					// deadlock check:
 					Point inv_dir(-DIR[i].i, -DIR[i].j);
 					bool hasDeadlock = isDeadlock(*it_b-DIR[i],inv_dir,boxes);                                                                                
+					//If pushing in this direction, push the box inside a corral,
+					//and it is the only possible push for this box (because other
+					//direction are in a corral or are walls, we will have to push
+					if (isInCorral(inv_dir))
+					{
+					//	if ((*it_b).i
+
+					}
+
+
 					if (repeated_state || hasDeadlock )
 					{
 						//std::cout << "Repeated state" << std::endl;
@@ -222,6 +235,18 @@ State* State::expand()
 	}
 	return NULL;
 	//TODO Maybe put deletion of reachable_area here rather than in the destructor
+}
+
+//A corral is an area that the player can't reach (!!!! in the following picture:)
+//##################
+//#!!!!!!$  @
+//#################
+bool State::isInCorral(const Point& p)
+{
+	//If p is empty (or a goal), without box, but outside the reachable area.
+	return (!reachable_area[p.i][p.j] && 
+			(ground.isEmpty(p) || ground(p)== GOAL) && 
+			boxes.find(p)==boxes.end());
 }
 
 bool State::isFinal()
