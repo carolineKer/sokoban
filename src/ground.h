@@ -44,6 +44,7 @@ class Ground {
 		bool getPath(Point from, Point to, string& result, const State& state);
 		bool rec_getPath(Point from, Point to, string& result, bool** visited_points, const State& state);
     
+		bool propagate_line(const Point& here, const Point& dir_block, const Point& dir_propag);
 		const Point& getSize() {
 			return ground_size;
 		};

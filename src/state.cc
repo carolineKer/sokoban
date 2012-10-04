@@ -84,17 +84,17 @@ void State::display()
 				case WALL:
 					std::cout << WALL;
 					break;
-				case EMPTY:
-					if (is_box)
-						std::cout << BOX;
-					else
-						std::cout << EMPTY;
-					break;
 				case GOAL:
 					if (is_box)
 						std::cout << B_ON_GOAL;
 					else
 						std::cout << GOAL;
+					break;
+				default:
+					if (is_box)
+						std::cout << BOX;
+					else
+						std::cout << EMPTY;
 					break;
 			}
 		}
@@ -187,7 +187,15 @@ State* State::expand()
 			{
 				std::set<Point>::iterator it;
 				it = boxes.find(*it_b-DIR[i]);
-				if ((ground(*it_b-DIR[i])==GOAL || ground(*it_b-DIR[i])==EMPTY || ground(*it_b-DIR[i])=='T')
+
+				//If the box is on a X or a D, it can be push to a X or D case (begining of the game):
+				//######
+				//#@ $
+				//######
+				if ( (ground(*it_b-DIR[i])==GOAL || ground(*it_b-DIR[i])==EMPTY || ground(*it_b-DIR[i])=='T'||  
+						(
+						 (ground(*it_b) == 'X' || ground(*it_b)== 'D') && ground(*it_b-DIR[i]) != WALL
+						))
 						&& it == boxes.end())
 				{
 					//std::cout << "Build new state" << std::endl;
@@ -206,11 +214,13 @@ State* State::expand()
 					//If pushing in this direction, push the box inside a corral,
 					//and it is the only possible push for this box (because other
 					//direction are in a corral or are walls, we will have to push
+					/*
 					if (isInCorral(inv_dir))
 					{
 					//	if ((*it_b).i
 
 					}
+					*/
 
 
 					if (repeated_state || hasDeadlock )

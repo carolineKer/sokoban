@@ -88,13 +88,84 @@ void Ground::findTunnel()
 	{
 		for (int j = 0; j<ground_size.j; j++)
 		{
-			if (__ground[i]->at(j) == 'X' || __ground[i]->at(j) == 'D')
+			if (__ground[i]->at(j) == 'X')
 			{
 				propagate_dead(Point(i,j));
 			}
 		}
 	}
 	std::cout << "En of tunnel search" << std::endl;
+	
+	//////////////////////////////////////////////
+	//Third Pass: detect dead lines
+	//////////////////////////////////////////////
+	//
+	//--> ##################
+	//    #D----------------D(or X)
+	//The (-) are dead-ends because we can only push
+	//the box to dead-ends from this position (There
+	//should be no goals).
+	//
+	for (int i = 0; i<ground_size.i; i++)
+	{
+		for (int j = 0; j<ground_size.j; j++)
+		{
+			if (__ground[i]->at(j) == 'X' || __ground[i]->at(j) == 'D')
+			{
+				//Seek propag and block dir.
+				for (int k = 0; k<4; k++)
+				{
+					if ( isOut(Point(i,j)+DIR[k]) || ground(Point(i,j)+DIR[k]) == WALL)//This will the blocked direction
+					{
+						//DIR[k+1] is orthogonal to DIR[k]
+						if (!isOut(Point(i,j)+DIR[(k+1)%4]) && ground(Point(i,j)+DIR[(k+1)%4]) != WALL)
+						{
+							propagate_line(Point(i,j), DIR[k],DIR[k+1]);
+						}
+						else if (!isOut(Point(i,j)+DIR[(k-1)%4]) && ground(Point(i,j)+DIR[(k-1)%4]) != WALL)
+						{
+							propagate_line(Point(i,j), Point(DIR[k]), DIR[(k-1)%4]);
+						}
+					}
+				}
+
+			}
+		}
+	}
+}
+
+// ################
+// D-->(looking for a D in this direction)
+// Here dir_block = UP and dir_propag = RIGHT
+bool Ground::propagate_line(const Point& here, const Point& dir_block, const Point& dir_propag)
+{
+	Point next = here + dir_propag;
+	Point to_check = next + dir_block;
+
+
+	if (isOut(next) || ground(next) == 'D' || ground(next) == 'X')
+	{
+		if (!isOut(here))
+			__ground[here.i]->at(here.j) = 'D';
+		return true;
+	}
+	else if (ground(next) == GOAL)
+	{
+		return false;
+	}
+
+	if (isOut(to_check) || ground(to_check) == WALL || ground(to_check) == 'X')
+	{
+		if (propagate_line(next, dir_block, dir_propag))
+		{
+			__ground[here.i]->at(here.j) = 'D';
+			return true;
+		}
+	}
+	else
+	{
+		return false;
+	}
 }
 
 void Ground::propagate_dead(const Point& p)
