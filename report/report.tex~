@@ -4,6 +4,7 @@
 \usepackage{listings}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{enumerate}
 
 \usepackage{listings}
 \usepackage[usenames,dvipsnames]{color}
@@ -23,7 +24,42 @@
 
 \textsc{\LARGE Royal Institute of Technology}\\[1.5cm]
 
-\includegraphics[width=0.3\textwidth]{kth_mathematics_rgb.jpg}\\[1cm]
+
+%\includegraphics[width=0.3\textwidth]{kth_mathematics_rgb.jpg}\\[1cm]
+\begin{figure}[h]
+        \centering
+        \begin{subfigure}[b]{0.2\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{kth_mathematics_rgb.jpg}
+                \caption{Caroline}
+                \label{fig:Caroline}
+        \end{subfigure}%
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.2\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{kth_mathematics_rgb.jpg}
+                \caption{Paul}
+                \label{fig:Paul}
+        \end{subfigure}
+        \\ %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.2\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{kth_mathematics_rgb.jpg}
+                \caption{Sindri}
+                \label{fig:Sindri}
+        \end{subfigure}
+          ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{0.2\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{kth_mathematics_rgb.jpg}
+                \caption{Tobias}
+                \label{fig:Tobias}
+        \end{subfigure}
+        %\caption{Pictures of animals}\label{fig:animals}
+\end{figure}
 
 \textsc{\Large Artificial intelligence, dd2380 }  %\\ Instructor: Tobias Ryden , \emph{tryd@math.kth.se}}\\[0.5cm]
 
@@ -33,14 +69,10 @@
 
 
 
-    Caroline Laurène Kéramsi, keramsiemail
-    Paul Lagrée (lagree) email
-    Sindri Magnússon (sindrim)
-    Tobias Johannes Uebbing (uebbing) email
-
-
-Sindri Magnússon, sindrim@kth.se, 871209-7156 \\
-Brynjar Smári Bjarnasson, bsbj@kth.se, 840824-4690 \\
+    Caroline Laurène Kéramsi, keramsi@kth.se, XXXXXX-XXXX \\
+    Paul Lagrée,lagree@kth.se, XXXXXX-XXXX \\
+    Sindri Magnússon, sindrim@kth.se, 871209-7156 \\
+    Tobias Johannes, Uebbing@kth.se, XXXXXX-XXXX \\
 
 
 \vfill
@@ -61,8 +93,38 @@ Brynjar Smári Bjarnasson, bsbj@kth.se, 840824-4690 \\
 \tableofcontents
 \newpage
 
+\abstract{ asdf}
 
 
+
+\section{Introduction}
+
+    Sokoban is an popular puzzel dating back to the eighties.  The original setting of the puzzel is a warehouse and the problem is to push boxes
+    around to predefined storage locations.  But the underlying problem is of course much more abstract.  The rules are simple~\cite{wiki_soko}: 
+    %cite http://en.wikipedia.org/wiki/Sokoban
+    \begin{enumerate}[I]
+        \item  Only one box can be pushed at a time.
+        \item A box cannot be pulled.
+        \item The player cannot walk through boxes or walls.
+        \item The puzzle is solved when all boxes are located at storage locations.
+    \end{enumerate}
+    Though the rules are simple the problem is quite difficult and has been proven to be $NP$-hard.
+    This is not only due to the brancing factor but also the enormous deepth of the search tree~\cite{wiki_soko}.
+    
+   
+
+\section{Design}
+
+    \subsection{States}
+    \subsection{Search}
+    \subsection{Pruning}
+
+
+\section{Results}
+
+\section{Conclusions}
+   
+      
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%
@@ -70,4 +132,11 @@ Brynjar Smári Bjarnasson, bsbj@kth.se, 840824-4690 \\
 %%%%%%
 %\appendix
  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%
+%%%%%%    
+%%%%%% 
+\bibliographystyle{plain} 
+\bibliography{refs.bib}	
 \end{document}          
