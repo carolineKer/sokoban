@@ -23,7 +23,7 @@ class State
 		//Print the reachable area for this state
 		void display_reachable_area();
     
-        std::string findSolutionString(State * final_state, State * initial_state); //!!!
+        	std::string findSolutionString(State * final_state, State * initial_state); //!!!
 
 		void display();
 
@@ -76,12 +76,16 @@ class State
 
 				std::set<Point>::iterator it_b;
 				int total = 0;
+				std::string texte="";
 
 				for (it_b = state->boxes.begin(); it_b != state->boxes.end(); it_b++)
 				{
-					total += std::hash<int>()((*it_b).i) ^ std::hash<int>()((*it_b).j);
+					//total += std::hash<int>()((*it_b).i) ^ std::hash<int>()((*it_b).i);
+					texte+=(*it_b).i+(*it_b).j;
 				}
-				total += std::hash<int>()((state->max_pos).i) ^ std::hash<int>()((state->max_pos).j);
+				texte+=(state->max_pos).i+(state->max_pos).j;
+				//total += std::hash<int>()((state->max_pos).i) ^ std::hash<int>()((state->max_pos).j);
+				total=std::hash<std::string>()(texte);
 				return total;
 			} ;
 		};

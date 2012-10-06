@@ -41,17 +41,17 @@ int main(int pArgC, char* pArgs[])
 	init.display();
 
 	State * final_state = NULL;
-	int i = 0;
+	//int i = 0;
 	while (final_state==NULL)
 	{
-		i++;
-		if (i%1000==0)
-			std::cout << "Nodes " << i << std::endl;
+		//i++;
+		//if (i%1000==0)
+			//std::cout << "Nodes " << i << std::endl;
 		State* to_expand = State::nextStateToExpand();
 		final_state = to_expand->expand();
 	}
-	std::cout << " Found a solution after having expanded " 
-		<< i << "nodes " << std::endl;
+	//std::cout << " Found a solution after having expanded " 
+	//	<< i << "nodes " << std::endl;
 
 	State * curr_state = final_state;
 	std::cout << "------------" << std::endl;
