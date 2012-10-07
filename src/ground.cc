@@ -1,7 +1,10 @@
 #include <iostream>
 #include <cassert>
-#include "ground.h" 
 #include <cstdlib>
+#include "tunnel.h"
+#include "ground.h" 
+
+
 
 using std::cout;
 using std::endl;
@@ -24,7 +27,7 @@ bool Ground::isEmpty(const Point &p)
 
 void Ground::findTunnel()
 {
-	std::cout << "Searching for tunnel" << std::endl;
+	std::cout << "Searching for tunnels" << std::endl;
 
 	//////////////////////////////////////////////
 	//First Pass detects this three configurations:
@@ -132,7 +135,110 @@ void Ground::findTunnel()
 			}
 		}
 	}
+
+	//////////////////////////////////////////////
+	//Fourth pass: find entries of tunnels
+	//////////////////////////////////////////////
+	//
+	//   ##############
+	//   ATTTTTTTTTTTTB
+	//   ##############
+	std::cout << "Find tunnel entries" << std::endl;
+	for (int i = 0; i<ground_size.i; i++)
+	{
+		for (int j = 0; j<ground_size.j; j++)
+		{
+			Point p(i,j);
+			if (ground(p)=='T')
+			{
+				std::cout << "Found a T" << std::endl;
+				//Find blocked directions
+				if (isOut(p+DIR[0]) || ground(p+DIR[0]) == WALL)
+				{
+					int l2 = explore_tunnel(p, 3, 'B');
+					if (l2 == 0)
+						__ground[p.i]->at(p.j) = ' ';
+					else
+					{
+						Point b = p;
+						__ground[p.i]->at(p.j) = 'A';
+						for (int k = 0; k<l2; k++)
+						{
+							b = b + DIR[3];
+						}
+						std::cout << "First size" << Tunnel::tunnels.size() << std::endl;
+						Tunnel::tunnels.push_back(Tunnel(p, b, l2+1));
+						std::cout << "First size" << Tunnel::tunnels.size() << std::endl;
+						std::cout << "Tunnel length" << std::endl;
+						std::cout << l2+1 << std::endl;
+						std::list<Tunnel>::const_iterator it_tunnel;
+						for (it_tunnel = Tunnel::tunnels.begin(); it_tunnel != Tunnel::tunnels.end(); it_tunnel++)
+						{
+							std::cout << "tunnel list " <<std::endl;
+							std::cout << it_tunnel->a.i << " " << it_tunnel->a.j << std::endl;
+							std::cout << it_tunnel->b.i << " " << it_tunnel->b.j << std::endl;
+						}
+					}
+				}
+				else if (isOut(p+DIR[1]) || ground(p+DIR[1])==WALL)
+				{
+					int l2 = explore_tunnel(p, 2, 'B');
+					if (l2 == 0)
+						__ground[p.i]->at(p.j) = ' ';
+					else
+					{
+						Point b = p;
+						__ground[p.i]->at(p.j) = 'A';
+						for (int k = 0; k<l2; k++)
+						{
+							b = b + DIR[2];
+						}
+						std::cout << "First size" << Tunnel::tunnels.size() << std::endl;
+						Tunnel::tunnels.push_back(Tunnel(p, b, l2+1));
+						std::cout << "First size" << Tunnel::tunnels.size() << std::endl;
+						std::cout << "Tunnel length" << std::endl;
+						std::cout << l2+1 << std::endl;
+						std::list<Tunnel>::iterator it_tunnel;
+						for (it_tunnel = Tunnel::tunnels.begin(); it_tunnel != Tunnel::tunnels.end(); it_tunnel++)
+						{
+							std::cout << "tunnel list " <<std::endl;
+							std::cout << it_tunnel->a.i << " " << it_tunnel->a.j << std::endl;
+							std::cout << it_tunnel->b.i << " " << it_tunnel->b.j << std::endl;
+						}
+					}
+				}
+			}
+		}
+	}
+		std::list<Tunnel>::const_iterator it_tunnel;
+		for (it_tunnel = Tunnel::tunnels.begin(); it_tunnel != Tunnel::tunnels.end(); it_tunnel++)
+		{
+			std::cout << "tunnel list " <<std::endl;
+			std::cout << it_tunnel->a.i << " " << it_tunnel->a.j << std::endl;
+			std::cout << it_tunnel->b.i << " " << it_tunnel->b.j << std::endl;
+		}
 }
+
+int Ground::explore_tunnel(const Point& p, int dir, char c)
+{
+	Point prev = p;
+	Point next = p+DIR[dir];
+	int length = 0;
+
+	std::cout << "Exploring " << p.i << " " <<p.j
+		<< "in direction " << dir << std::endl;
+	while (!isOut(next) && ground(next) == 'T')
+	{
+		__ground[prev.i]->at(prev.j) = 'C';
+		prev = next;
+		next = next+DIR[dir];
+		length++;
+	}
+
+	__ground[prev.i]->at(prev.j) = c;
+	return length;
+}
+
 
 // ################
 // D-->(looking for a D in this direction)

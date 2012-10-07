@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cassert>
 #include <algorithm>
+#include "tunnel.h"
 
 
 //Contains the states wich must be expanded (because we are doing a BFS)
@@ -18,7 +19,7 @@ State::State(const std::set<Point>& boxes, const Point& player):boxes(boxes),
 	is_in_all_list(true),
 	is_in_expand_list(true),
 	depth(0),
-	reachable_area(NULL)
+	tunnel(NULL)
 						
 {
 	const Point ground_size = ground.getSize();
@@ -34,7 +35,15 @@ State::State(const std::set<Point>& boxes, const Point& player):boxes(boxes),
 	all_states.insert(this);
 }
 
-State::State(State& prev_state, const Point& moved_box, int dir):boxes(prev_state.boxes), parent(&prev_state), dir(dir), is_in_all_list(false), is_in_expand_list(false), moved_box(moved_box),reachable_area(NULL)
+State::State(State& prev_state, const Point& moved_box, int dir, const Tunnel* tunnel):
+	boxes(prev_state.boxes), 
+	parent(&prev_state), 
+	dir(dir), 
+	is_in_all_list(false), 
+	is_in_expand_list(false), 
+	moved_box(moved_box), 
+	tunnel(tunnel),
+	reachable_area(NULL)
 {
 	//std::cout << "Build a state move box " << moved_box.i << " " << moved_box.j
 	//	<< " direction :" << -DIR[dir].i << " " << -DIR[dir].j << std::endl;
@@ -48,7 +57,20 @@ State::State(State& prev_state, const Point& moved_box, int dir):boxes(prev_stat
 	it = this->boxes.find(moved_box);
 	assert(it != this->boxes.end());
 	this->boxes.erase(it);
-	this->boxes.insert(moved_box-DIR[dir]);
+
+	if (tunnel == NULL)
+		this->boxes.insert(moved_box-DIR[dir]);
+	else
+	{
+		if (moved_box == tunnel->b)
+		{
+			this->boxes.insert(tunnel->a);
+		}
+		else 
+		{
+			this->boxes.insert(tunnel->b);
+		}
+	}
 
 	allocate_reachable_area();
 	compute_reachable_area(moved_box+DIR[dir]);
@@ -210,15 +232,117 @@ State* State::expand()
 				//######
 				//#@ $
 				//######
-				if ( (ground(*it_b-DIR[i])==GOAL || ground(*it_b-DIR[i])==EMPTY || ground(*it_b-DIR[i])=='T'||  
+				//
+				//Tunnel:
+				//1/ Enter in the tunnel
+				//--> ground(*it_b-DIR[i]) == 'A' or 'B'
+				//We must check that it is not a deadlock (ie there is no box on the other tunnel entry)
+				//###############--> this push should not be allowed, it is a deadlock
+				// -->$A	   $ 
+				//     #########
+				//2/ Push in the tunnel
+				//--> ground(*it_b) == 'A' or 'B' and push to 'A' 'B' or 'C'
+				//If the box with on 'A' it must be pushed to 'B', if it was on 'B' it must be pushed to 'A'
+				if (
 						(
-						 (ground(*it_b) == 'X' || ground(*it_b)== 'D') && ground(*it_b-DIR[i]) != WALL
+						(
+							ground(*it_b-DIR[i])==GOAL || ground(*it_b-DIR[i])==EMPTY || 
+							ground(*it_b-DIR[i])=='A' || ground(*it_b-DIR[i])=='B' || ground(*it_b-DIR[i]) == 'C'
+						) ||
+						(
+						 (ground(*it_b) == 'X' || ground(*it_b)== 'D') && 
+						 ground(*it_b-DIR[i]) != WALL
 						))
 						&& it == boxes.end())
 				{
-					//std::cout << "Build new state" << std::endl;
-					State * s = new State(*this, *it_b, i);
-					//std::cout << "New state built" << std::endl;
+
+					State * s;
+					/////////////////////////////
+					// Push to a tunnel position
+					/////////////////////////////
+
+					if (ground(*it_b-DIR[i]) == 'A' || ground(*it_b-DIR[i]) == 'B' || ground(*it_b-DIR[i]) == 'C')
+					{
+						std::list<Tunnel>::iterator it_tunnel;
+						if (ground(*it_b) == 'A')  //Was already inside the tunnel
+						{
+							std::list<Tunnel>::const_iterator it_tunnel;
+							for (it_tunnel = Tunnel::tunnels.begin(); it_tunnel != Tunnel::tunnels.end(); it_tunnel++)
+							{
+								if (it_tunnel->a == *it_b) 
+									break;
+							}
+
+							//it_tunnel = Tunnel::tunnels.find(Tunnel(*it_b, Point(-42,-42)));
+							assert(it_tunnel != Tunnel::tunnels.end());
+							const Tunnel& t = *it_tunnel;
+							s = new State(*this, *it_b, i , &t);
+						}
+						else if (ground(*it_b) == 'B') //Was already inside the tunnel
+						{
+							std::list<Tunnel>::const_iterator it_tunnel;
+							for (it_tunnel = Tunnel::tunnels.begin(); it_tunnel != Tunnel::tunnels.end(); it_tunnel++)
+							{
+								if (it_tunnel->b == *it_b) 
+								{
+									break;
+								}
+							}
+							//it_tunnel = Tunnel::tunnels.find(Tunnel(Point(-24,-24),*it_b));
+							assert(it_tunnel != Tunnel::tunnels.end());
+							const Tunnel& t = *it_tunnel;
+							s = new State(*this, *it_b, i , &t);
+						}
+						else //Entering the tunnel --> check tunnel deadlocks
+						{
+							assert (ground(*it_b-DIR[i]) != 'C');
+							std::set<Point>::iterator it2;
+
+							//Find tunnel
+							std::list<Tunnel>::iterator it_tunnel;
+							if (ground(*it_b-DIR[i]) == 'A')
+							{
+								for (it_tunnel = Tunnel::tunnels.begin(); it_tunnel != Tunnel::tunnels.end(); it_tunnel++)
+								{
+									if (it_tunnel->a == (*it_b-DIR[i]))
+										break;
+								}
+								assert(it_tunnel != Tunnel::tunnels.end());
+							}
+							else if (ground(*it_b-DIR[i]) == 'B') //Was already inside the tunnel
+							{
+								for (it_tunnel = Tunnel::tunnels.begin(); it_tunnel != Tunnel::tunnels.end(); it_tunnel++)
+								{
+									if (it_tunnel->b == (*it_b-DIR[i]))
+										break;
+								}
+								assert(it_tunnel != Tunnel::tunnels.end());
+							}
+							const Tunnel& t = *it_tunnel;
+
+							if (ground(*it_b-DIR[i]) == 'A')
+							{
+								it2 = boxes.find(t.b);
+							}
+							else 
+							{
+								it2 = boxes.find(t.a);
+							}
+
+							//There is already a box in this tunnel
+							if (it2 != boxes.end())
+							{
+								continue;
+							}
+
+							s = new State(*this, *it_b, i);
+						}
+					}
+					else
+					{
+						s = new State(*this, *it_b, i);
+					}
+
 					bool repeated_state = false;
 					//std::cout << "Compare with all states" << std::endl;
 					if (all_states.find(s) != all_states.end())
@@ -422,6 +546,7 @@ std::string State::findSolutionString(State * final_state, State * initial_state
 		player_position = goal;
 		goal = moved_box;
 		path_part.append( ground.addDirectionLetter(player_position, moved_box));
+
 		//**************************************************//
 
 		final_path.insert(0, path_part);

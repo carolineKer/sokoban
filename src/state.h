@@ -9,6 +9,7 @@
 #include <string>
 #include <unordered_set>
 #include <iostream>
+#include "tunnel.h"
 
 class State
 {
@@ -17,7 +18,7 @@ class State
 		State(const std::set<Point>& boxes, const Point& player);
 
 		//build a state from a move and a previous state
-		State(State& prev_state, const Point& moved_box, int dir);
+		State(State& prev_state, const Point& moved_box, int dir, const Tunnel * tunnel = NULL);
 		~State();
 
 		//Print the reachable area for this state
@@ -152,9 +153,7 @@ class State
 		//True if the state is registered in all_states
 		bool is_in_all_list;
 
-
-
-
+		const Tunnel * tunnel;
 };
 
 #endif

@@ -57,6 +57,8 @@ class Ground {
         string findPath(const Point& from, const Point& to, const State& state); //!!!
         void explorePath(const Point& from, const Point& to, const State& state, const Point& start); //!!!
         int calcManhattDist(const Point& a, const Point& b);
+			
+		int explore_tunnel(const Point& p, int k, char c);
 
 		Point getInitialPosPlayer();
 

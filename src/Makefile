@@ -1,9 +1,13 @@
 SRC=$(wildcard *.cc)
+OBJ=$(patsubst %.cc, %.o, $(SRC))
 
 all: main
 
-main:*.cc
-	g++ -O2 -std=c++0x -g -o main $(SRC)
+main: $(OBJ)
+	g++ -O2 -std=c++0x -g -o main $(OBJ)
+
+%.o: %.cc
+	g++ -O2 -std=c++0x -c -g $^
 
 test:main
 	./main dd2380.csc.kth.se $(PORT) $(BOARD)

@@ -7,6 +7,7 @@ let "zero = 0"
 
 for i in `seq 1 100`
 do
+	echo "BOARD $i"
 	timeout 30 ./main dd2380.csc.kth.se 5032 $i
 	if [ $? -eq $zero ]
 	then
