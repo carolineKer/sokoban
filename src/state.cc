@@ -226,6 +226,7 @@ State* State::expand()
 					if (repeated_state || hasDeadlock )
 					{
 						//std::cout << "Repeated state" << std::endl;
+						delete s;
 						continue;
 					}
 					else
