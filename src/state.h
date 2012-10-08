@@ -60,8 +60,13 @@ class State
 		struct Compare {
 			bool operator()(State* a, State* b)
 			{
-				return (a->depth + a->euristic() > b->depth + b->euristic());
+				return compare(*a, *b);
 			};
+		};
+
+		static bool compare(State& a, State& b)
+		{
+			return (a.depth + a.euristic() > b.depth + b.euristic());
 		};
 
 		struct Equality {
