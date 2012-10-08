@@ -395,8 +395,9 @@ std::string State::findSolutionString(State * final_state, State * initial_state
         
 		//***********From one state to the next***************//
 		Point goal = moved_box + DIR[dir];
-        std::string path_part;
-		ground.getPath(player_position,goal, path_part, *from_state);
+        	std::string path_part;
+		path_part = ground.findPath(player_position, goal, *from_state);
+		//ground.getPath(player_position,goal, path_part, *from_state);
 
 		player_position = goal;
 		goal = moved_box;
