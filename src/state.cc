@@ -17,46 +17,30 @@ State::State(const std::set<Point>& boxes, const Point& player):boxes(boxes),
 	parent(NULL), 
 	is_in_all_list(true),
 	is_in_expand_list(true),
-	depth(0)
+	depth(0),
+	reachable_area(NULL)
 						
 {
 	const Point ground_size = ground.getSize();
-	reachable_area = new bool*[ground_size.i];
-	for (int i = 0; i<ground_size.i; i++)
-	{
-		reachable_area[i] = new bool[ground_size.j];
-		for (int j = 0; j< ground_size.j ; j++)
-		{
-			reachable_area[i][j] = false;
-		}
-	}
 	max_pos.i = -1;
 	max_pos.j = -1;
 
 	std::cout << "Player " << std::endl;
 	std::cout << player.i << " " << player.j << " " << std::endl;
 
+	allocate_reachable_area();
 	compute_reachable_area(player);
 	this->add_to_l();
 	all_states.insert(this);
 }
 
-State::State(State& prev_state, const Point& moved_box, int dir):boxes(prev_state.boxes), parent(&prev_state), dir(dir), is_in_all_list(false), is_in_expand_list(false), moved_box(moved_box)
+State::State(State& prev_state, const Point& moved_box, int dir):boxes(prev_state.boxes), parent(&prev_state), dir(dir), is_in_all_list(false), is_in_expand_list(false), moved_box(moved_box),reachable_area(NULL)
 {
 	//std::cout << "Build a state move box " << moved_box.i << " " << moved_box.j
 	//	<< " direction :" << -DIR[dir].i << " " << -DIR[dir].j << std::endl;
 	
 	depth = parent->depth+1;
  	const Point ground_size = ground.getSize();
-	reachable_area = new bool*[ground_size.i];
-	for (int i = 0; i<ground_size.i; i++)
-	{
-		reachable_area[i] = new bool[ground_size.j];
-		for (int j = 0; j< ground_size.j ; j++)
-		{
-			reachable_area[i][j] = false;
-		}
-	}
 	max_pos.i = -1;
 	max_pos.j = -1;
 
@@ -66,7 +50,9 @@ State::State(State& prev_state, const Point& moved_box, int dir):boxes(prev_stat
 	this->boxes.erase(it);
 	this->boxes.insert(moved_box-DIR[dir]);
 
+	allocate_reachable_area();
 	compute_reachable_area(moved_box+DIR[dir]);
+	free_reachable_area();
 }
 
 void State::display()
@@ -105,6 +91,8 @@ void State::display()
 
 void State::display_reachable_area()
 {
+	if (reachable_area == NULL)
+		return;
 	std::set<Point>::iterator it;
 	for (it = boxes.begin(); it!=boxes.end(); it++)
 	{
@@ -127,6 +115,21 @@ void State::display_reachable_area()
 	}
 }
 
+void State::free_reachable_area()
+{
+	if (reachable_area == NULL)
+		return;
+
+	const Point ground_size = ground.getSize();
+	for (int i = 0; i<ground_size.i; i++)
+	{
+		delete[] reachable_area[i];
+	}
+	delete[] reachable_area;
+	reachable_area = NULL;
+}
+
+
 
 /* ! *\ The destruction is incorrect  */
 State::~State()
@@ -138,10 +141,20 @@ State::~State()
 		std::cout << "...Will segfault later... " << std::endl;
 		std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
 	}
+}
+
+void State::allocate_reachable_area()
+{
+	assert(reachable_area == NULL);
 	const Point ground_size = ground.getSize();
+	reachable_area = new bool*[ground_size.i];
 	for (int i = 0; i<ground_size.i; i++)
 	{
-		delete[] reachable_area[i];
+		reachable_area[i] = new bool[ground_size.j];
+		for (int j = 0; j< ground_size.j ; j++)
+		{
+			reachable_area[i][j] = false;
+		}
 	}
 }
 
@@ -177,6 +190,11 @@ State* State::expand()
 {
 	std::set<Point>::iterator it_b;
 	//For each box
+	if (reachable_area == NULL)
+	{
+		allocate_reachable_area();
+		compute_reachable_area(moved_box+DIR[dir]);
+	}
 	for (it_b = boxes.begin(); it_b != boxes.end(); it_b++)
 	{
 		//For each direction
@@ -244,6 +262,7 @@ State* State::expand()
 			}
 		}
 	}
+	free_reachable_area();
 	return NULL;
 	//TODO Maybe put deletion of reachable_area here rather than in the destructor
 }

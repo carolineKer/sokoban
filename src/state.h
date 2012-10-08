@@ -123,6 +123,8 @@ class State
 		bool ** reachable_area;
 		Point max_pos;
 		void compute_reachable_area(const Point& from);
+		void free_reachable_area();
+		void allocate_reachable_area();
 
 		//A corral is an area that the player can't reach (!!!! in the following picture:)
 		//##################
