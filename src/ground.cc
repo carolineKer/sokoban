@@ -471,7 +471,7 @@ Point Ground::getNextCell(const Point& from, const Point& to, const State& state
     
     for (int i = 0; i<4; i++) passable[i] = ground.isPassable(from + DIR[i], state);
     
-    for (int i = 0; i<4; i++) std::cout << i << " " << passable[i] << std::endl;
+    //for (int i = 0; i<4; i++) std::cout << i << " " << passable[i] << std::endl;
     
     if     (distX < 0 && passable[3]) next = from + RIGHT;
     else if(distX > 0 && passable[1]) next = from + LEFT;
@@ -543,7 +543,7 @@ void Ground::explorePath(const Point& from, const Point& to, const State& state,
             tempPath.push_back(next);
             //std::cout << "Function End: Path size:  " << tempPath.size() << " steps!" << std::endl;
             //std::cout << "Next place:  " << next.i << " " << next.j << std::endl;
-            //explorePath(next, to, state, start);
+            explorePath(next, to, state, start);
             
         }
         else
