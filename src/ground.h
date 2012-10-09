@@ -55,7 +55,7 @@ class Ground {
         Point getNextCell(const Point& from, const Point& to, const State& state); //!!!
         string addDirectionLetter(const Point& from, const Point& next); //!!!
         string findPath(const Point& from, const Point& to, const State& state); //!!!
-        void explorePath(const Point& from, const Point& to, const State& state); //!!!
+        void explorePath(const Point& from, const Point& to, const State& state, const Point& start); //!!!
         int calcManhattDist(const Point& a, const Point& b);
 
 		Point getInitialPosPlayer();

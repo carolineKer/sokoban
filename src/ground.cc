@@ -471,6 +471,8 @@ Point Ground::getNextCell(const Point& from, const Point& to, const State& state
     
     for (int i = 0; i<4; i++) passable[i] = ground.isPassable(from + DIR[i], state);
     
+    //for (int i = 0; i<4; i++) std::cout << i << " " << passable[i] << std::endl;
+    
     if     (distX < 0 && passable[3]) next = from + RIGHT;
     else if(distX > 0 && passable[1]) next = from + LEFT;
     else if(distY < 0 && passable[2]) next = from + DOWN;
@@ -508,15 +510,15 @@ string Ground::findPath(const Point& from, const Point& to, const State& state)
     
     if(from != to)
     {
-        std::cout << "Start finding path!" << std::endl;
+        //std::cout << "Start finding path!" << std::endl;
         tempPath.clear();
         deadends.clear();
         tempPath.push_back(from);
-        explorePath(from, to, state);
+        explorePath(from, to, state, from);
         
-        std::cout << "Found path with " << tempPath.size() << " steps!" << std::endl;
+        //std::cout << "Found path with " << tempPath.size() << " steps!" << std::endl;
         
-        std::cout << "Start generating solution string!" << std::endl;
+        //std::cout << "Start generating solution string!" << std::endl;
         
         for(int i = 0; i < tempPath.size()-1; i++) path += addDirectionLetter(tempPath[i],tempPath[i+1]);
     }
@@ -525,12 +527,11 @@ string Ground::findPath(const Point& from, const Point& to, const State& state)
     return path;
 }
 
-void Ground::explorePath(const Point& from, const Point& to, const State& state)
+void Ground::explorePath(const Point& from, const Point& to, const State& state, const Point& start)
 {
     //std::cout << "Last place:  " << tempPath[tempPath.size()-2].i << " " << tempPath[tempPath.size()-2].j << std::endl;
     //std::cout << "Current place:  " << from.i << " " << from.j << std::endl;
     //std::cout << "Function start: Path size:  " << tempPath.size() << " steps!" << std::endl;
-    
     
     if(from != to)
     {
@@ -538,33 +539,37 @@ void Ground::explorePath(const Point& from, const Point& to, const State& state)
         
         if(next != from)
         {
-            std::cout << "Found next cell!" << std::endl;
+            //std::cout << "Found next cell!" << std::endl;
             tempPath.push_back(next);
-            std::cout << "Function End: Path size:  " << tempPath.size() << " steps!" << std::endl;
-            std::cout << "Next place:  " << next.i << " " << next.j << std::endl;
-            explorePath(next, to, state);
+            //std::cout << "Function End: Path size:  " << tempPath.size() << " steps!" << std::endl;
+            //std::cout << "Next place:  " << next.i << " " << next.j << std::endl;
+            explorePath(next, to, state, start);
             
         }
         else
         {
-            if(from == ground.getPlayer())
+            //std::cout << "This is a deadend!" << std::endl;
+            if(from == start)
             {
-                std::cout << "There is no pathway to this goal yet!" << std::endl;
+                tempPath.clear();
+                //std::cout << "We are back at the Player position! There is no pathway to this goal yet!" << std::endl;
                 return;
             }
-            else
+            else 
             {
-                std::cout << "This is a deadend!" << std::endl;
+                if(from == tempPath[tempPath.size()-1]){
+                    //std::cout << "tempPath.pop_back()" << std::endl;
+                    tempPath.pop_back();
+                }
                 deadends.push_back(from);
-                tempPath.pop_back();
-                std::cout << "Function End: Path size:  " << tempPath.size() << " steps!" << std::endl;
+                //std::cout << "Function End: Path size:  " << tempPath.size() << " steps!" << std::endl;
                 next = tempPath[tempPath.size()-1];
-                std::cout << "Back to place:  " << next.i << " " << next.j << std::endl;
-                explorePath(next, to, state);
+                //std::cout << "Back to place:  " << next.i << " " << next.j << std::endl;
+                explorePath(next, to, state, start);
             }
         }
     }
-    else std::cout << "Reached aim!" << std::endl;
+    //else std::cout << "Reached aim!" << std::endl;
 }
 
 //Well not really important...

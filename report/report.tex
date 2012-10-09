@@ -9,6 +9,7 @@
 \usepackage{listings}
 \usepackage[usenames,dvipsnames]{color}
 \usepackage{courier}
+\usepackage{fullpage}
 
 
 % Title Page
@@ -119,8 +120,42 @@
    
 
 \section{Design}
+    \subsection{Project organisation}
+	We started with a simple implementation which was able to solve a small number of boards. 
+	Then we applied different methods to improve it.
+	As it takes time to get feedbacks from the server, we wrote our own bash script to evaluate the number of boards we are able to solve.
+	This script runs our solver on 100 boards (server port 5032).
+	We didn't want to wait too long for the results of the script so we limited the search time to 30 seconds per board.
 
-    \subsection{States}
+	\subsection{States representation}
+	A state can be represented by the position of the player and the position of each boxes on the map. 
+	Yet this representation is naive. 
+	We want to have a new state when we push a box and not when we only move the player, without touching a box.
+	So instead of considering the player position, we consider the area he can reach.
+	This area can be computed easily by a recursive algortihm.
+	Two states can be compared by looking at the box position and the leftest, upmost case of the reachable area.
+
+	\subsection{Initial algorithm}
+	To expand a state, we look at each direction of each box. 
+	If a direction is inside the area that the player can reach, we look if there is a hindrance (box or wall) in the opposite direction.
+	If this is not the case, the box can be pushed and we can create a new state.
+	The new state is compared with the states which have already been created. 
+	If the state existed already, we delete the new state.
+	Otherwise we add it to the list of created states and to the fifo of the states wich must be expanded.
+	Then we can take the next state in the fifo and repeat the procedure.
+	We stop when we reach a final state (ie. a state where all the boxes are on a goal).
+	Once we found a final state, we apply a pathfinding algortihm to build the solution string from the succession of states.
+	This algorithm performs a Breadth-First-Search in the search space.
+
+	With this first version we could only solve 1 board out of 100. 
+
+	\subsection{Deadlocks}
+	1 board solved (the same that with the initial algorithm) but the board is solved after around 3500 nodes (instead of 7700 before)
+
+	\subsection{A*}
+
+	\subsection{Pathfinding algorithm}
+
     \subsection{Search}
         sdf~\cite{solving_soko}
     \subsection{Pruning}
