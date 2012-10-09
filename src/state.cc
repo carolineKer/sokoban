@@ -332,8 +332,14 @@ State* State::nextStateToExpand_IDA()
 	//std::cout << "nextStateToExpand_IDA(): Got into!" << std::endl;
 	//If expand() founds the final_state to to_return becomes the final_state
 	//Otherwise it will get NULL
-	//clear_to_expand();	
-	State * to_return = expand();
+	//clear_to_expand();
+	State * to_return;
+	if(!explored)
+	{
+		to_return = expand();
+		explored = true;
+	}	
+	else to_return = NULL;
 	
 	//If to_return is not the final state
 	if(to_return == NULL)
@@ -342,10 +348,13 @@ State* State::nextStateToExpand_IDA()
 		//Go through the whole to_expand priority_queue
 		while(!to_expand.empty())
 		{	
+			//std::cout << "nextStateToExpand_IDA(): Selection LOOP!" << std::endl;
 			State* next = to_expand.top();
+			//std::cout << "nextStateToExpand_IDA(): Outcome compare: " << compare(*this,*next) << std::endl;
 			//If there is a next state that has a smaller cost the the current state
-			if(compare(*this,*next))
+			if(/*compare(*this,*next) && */next->isExplored()== false)
 			{	
+				//std::cout << "nextStateToExpand_IDA(): Found suitable successor!" << std::endl;
 				//Then to_return becomes this state
 				to_return = next;
 				to_expand.pop();
@@ -377,7 +386,7 @@ State* State::IDAStar_search(State* curr_state, State* init_state)
 	
 	State* return_state = curr_state;
 
-	if(curr_state == init_state) std::cout << "IDAStar_search(): ATTENTION! Reached root again!" << std::endl;
+	//if(curr_state == init_state) std::cout << "IDAStar_search(): ATTENTION! Reached root again!" << std::endl;
 	
 	//Test whether this is the final state
 	if(!(curr_state->isFinal()))
@@ -390,7 +399,6 @@ State* State::IDAStar_search(State* curr_state, State* init_state)
 		if(next_state != NULL)
 		{
 			//std::cout << "IDAStar_search(): Found next state to expand!" << std::endl;
-			//next_state->setParentState(curr_state);
 			return_state = curr_state->IDAStar_search(next_state, init_state);
 		}
 		//else go back to the parent state
@@ -409,17 +417,6 @@ State* State::IDAStar_search(State* curr_state, State* init_state)
 	else std::cout << "IDAStar_search(): Found final state!" << std::endl;
 
 	return return_state;	
-}
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * clear_to_expand empties the to_expand priority queue to be able to fill it again
- * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-void State::clear_to_expand()
-{
-	while(!to_expand.empty())
-	{
-		to_expand.pop();
-	}
 }
 
 

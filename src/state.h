@@ -52,7 +52,8 @@ class State
 		//IDA* Methods
 		State* IDAStar_search(State* curr_state, State* init_state);
 		State* nextStateToExpand_IDA();
-		void clear_to_expand();
+		bool isExplored(){ return explored;};
+		void setExplored(){ explored = true;};
 
 		//Getter to private set of boxes
 		std::set<Point> getBoxes();
@@ -157,8 +158,9 @@ class State
 
 		//True if the state is registered in all_states
 		bool is_in_all_list;
-
-
+		
+		//True if the state has been eplored/expanded
+		bool explored;
 
 
 };
