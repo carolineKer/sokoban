@@ -202,6 +202,15 @@
 	Since the box is stuck it can never reach a goal and hence it is not possible to go from this state to the final state.    
 	We call such states deadlocks.
 
+	\begin{verbatim}
+	#############  The rightest box is stucked in a corner.
+	#X .       $#  This state is a deadlock.
+	#           # 
+	###$######### 
+	#     $  ...# 
+	############# 
+	\end{verbatim}
+
         Search in the subtree below a deadlock is just a waste since it is not possible to reach the final state from there.  
         It is therefore very desirable to be able to detect deadlock as soon as possible.
 	  \subsubsection{Frozen deadlock}
@@ -240,6 +249,10 @@
 	This function compute the Euclidean distance (also know as 2-norm distance) of each  box to a goal. 
 	Of course we do not use twice the same goal and we use the closest goal when it is possible. 
 	This implementation has improved our Sokoban solver by reducing the number of nodes needed to be explored.
+
+	\begin{figure}[h]
+	\centerline{\includegraphics[height=5 cm, width=5cm]{./priority_state.png}}
+	\end{figure}
 
 	\subsection{Pathfinding algorithm}
 
