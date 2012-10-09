@@ -130,6 +130,8 @@ bool isDeadlock( const Point& p , Point& dir , std::set<Point>& boxes){
         // if we have deadlock.
         return false;
     }
+
+/*
     // left and right are the directions left and right
     // relative to DIR[i]
     // left operator:  [ [0,-1], [ 1,0] ]
@@ -195,7 +197,7 @@ bool isDeadlock( const Point& p , Point& dir , std::set<Point>& boxes){
         return true;
     }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-*/
+
 
 
 
@@ -247,7 +249,7 @@ bool isDeadlock( const Point& p , Point& dir , std::set<Point>& boxes){
         }
 
     }
-
+*/
 
     std::set<Point> block_list;
     return frozen_deadlock( block_list, dir, p, p-dir, p, false, false, boxes);
