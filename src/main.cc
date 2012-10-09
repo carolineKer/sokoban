@@ -39,7 +39,9 @@ int main(int pArgC, char* pArgs[])
 	std::cout << "---- Display initial state ----" <<std::endl;
 	State init = ground.getInitialState();
 	init.display();
-
+	
+	//------------------------------- A* -------------------------------------
+	
 	State * final_state = NULL;
 	//int i = 0;
 	while (final_state==NULL)
@@ -52,6 +54,13 @@ int main(int pArgC, char* pArgs[])
 	}
 	//std::cout << " Found a solution after having expanded " 
 	//	<< i << "nodes " << std::endl;
+
+
+	//--------------------- IDA* based on IDDFS ------------------------------
+	
+	//State * final_state = init.IDAStar_search(&init, &init);	
+	
+	//------------------------------------------------------------------------
 
 	State * curr_state = final_state;
 	std::cout << "------------" << std::endl;

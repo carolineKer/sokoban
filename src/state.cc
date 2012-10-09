@@ -187,7 +187,10 @@ void State::compute_reachable_area(const Point& from)
 
 
 State* State::expand()
-{
+{	
+	//Test from Tobi
+	//std::cout << "expand(): Got into!" << std::endl;
+
 	std::set<Point>::iterator it_b;
 	//For each box
 	if (reachable_area == NULL)
@@ -195,6 +198,15 @@ State* State::expand()
 		allocate_reachable_area();
 		compute_reachable_area(moved_box+DIR[dir]);
 	}
+
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 * Tobi: Here it is where my IDA* crashes and gets an memory access error. 
+	 * It happens if the algorythm gets back to the root. Maybe there is a need to avoid expanding the states again or doing a 		 * reset before. But I could not figure out until now. Feel free to take a look on it if you want =)
+	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+	//Test from Tobi
+	//std::cout << "expand(): After reachable area!" << std::endl;
+
 	for (it_b = boxes.begin(); it_b != boxes.end(); it_b++)
 	{
 		//For each direction
@@ -240,8 +252,7 @@ State* State::expand()
 					}
 					*/
 
-
-					if (repeated_state || hasDeadlock )
+					if (repeated_state || hasDeadlock)
 					{
 						//std::cout << "Repeated state" << std::endl;
 						delete s;
@@ -308,6 +319,110 @@ State* State::nextStateToExpand()
 	//std::cout << "There" << std::endl;
 	return  to_return;
 }
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * nextStateToExpand returns a State* to: 
+ * 	the final_state: 	if expand() found the final_state as successor of the curr_state
+ *	a successor: 		if there is a successor with less cost than the curr_state
+ *	NULL:			if there is no suitable sucessor
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+State* State::nextStateToExpand_IDA() 
+{	
+	//std::cout << "nextStateToExpand_IDA(): Got into!" << std::endl;
+	//If expand() founds the final_state to to_return becomes the final_state
+	//Otherwise it will get NULL
+	//clear_to_expand();	
+	State * to_return = expand();
+	
+	//If to_return is not the final state
+	if(to_return == NULL)
+	{	
+		//std::cout << "nextStateToExpand_IDA(): Did not find the final_state!" << std::endl;
+		//Go through the whole to_expand priority_queue
+		while(!to_expand.empty())
+		{	
+			State* next = to_expand.top();
+			//If there is a next state that has a smaller cost the the current state
+			if(compare(*this,*next))
+			{	
+				//Then to_return becomes this state
+				to_return = next;
+				to_expand.pop();
+				to_return->is_in_expand_list = false;
+				//And exit the loop
+				break; 
+			}
+			//Otherwise delete this state from the priority_queue
+			to_expand.pop();
+			next->is_in_expand_list = false;
+		}
+	}
+
+	//std::cout << "nextStateToExpand_IDA(): END!" << std::endl;
+	
+	//to_return will be NULL if there is no cheaper next state to expand than the current state
+	return  to_return;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * IDASTAR_search() searches recursivley for the final/solution state of a sokoban game
+ * It returns the a State* in the end. If this pointer points to ...
+ *	... the initially given state than the initial state is the final state
+ * 	    OR the algorythmn did not find a sequence of states that leads to the final_state and gives an error message
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+State* State::IDAStar_search(State* curr_state, State* init_state)
+{	
+	//std::cout << "IDAStar_search(): Got into!" << std::endl;
+	
+	State* return_state = curr_state;
+
+	if(curr_state == init_state) std::cout << "IDAStar_search(): ATTENTION! Reached root again!" << std::endl;
+	
+	//Test whether this is the final state
+	if(!(curr_state->isFinal()))
+	{	
+		//std::cout << "IDAStar_search(): Is not final state!" << std::endl;
+		//If not try to expand a new state
+		State* next_state = curr_state->nextStateToExpand_IDA();
+		
+		//If this there is a next state to expand, expand it
+		if(next_state != NULL)
+		{
+			//std::cout << "IDAStar_search(): Found next state to expand!" << std::endl;
+			//next_state->setParentState(curr_state);
+			return_state = curr_state->IDAStar_search(next_state, init_state);
+		}
+		//else go back to the parent state
+		else
+		{
+			//std::cout << "IDAStar_search(): Found no next state. GO BACK!" << std::endl;
+			State* goBack_state = curr_state->getParentState();
+			//std::cout << "IDAStar_search(): Got parent!" << std::endl;			
+			//But only if there is a parent state
+			if (goBack_state != NULL) return_state = IDAStar_search(goBack_state, init_state);
+			//If there is no parent state we assume we reached the root of the tree again and we found no sulution
+			else std::cout << "IDAStar_search(): ERROR! Found no solution!" << std::endl;
+		}	
+		
+	}
+	else std::cout << "IDAStar_search(): Found final state!" << std::endl;
+
+	return return_state;	
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * clear_to_expand empties the to_expand priority queue to be able to fill it again
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+void State::clear_to_expand()
+{
+	while(!to_expand.empty())
+	{
+		to_expand.pop();
+	}
+}
+
+
 
 void State::add_to_l()
 {

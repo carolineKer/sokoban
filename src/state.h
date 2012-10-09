@@ -38,6 +38,7 @@ class State
 		void remove_from_l();
 
 		State* getParentState() {return parent;};
+		void setParentState(State* new_parent) { parent = new_parent;};
 
 		//Compare a state with anoter state. Two states are equal
 		//if the boxes are at the same position and the reaching area
@@ -47,6 +48,11 @@ class State
 
 		//Returns (and pop) the next states from to_expand_list
 		static State* nextStateToExpand();
+		
+		//IDA* Methods
+		State* IDAStar_search(State* curr_state, State* init_state);
+		State* nextStateToExpand_IDA();
+		void clear_to_expand();
 
 		//Getter to private set of boxes
 		std::set<Point> getBoxes();
