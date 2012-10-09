@@ -116,10 +116,6 @@
     This is not only due to the branching factor but also the 
     enormous depth of the search tree~\cite{wiki_soko}.
     
-
-    
-   
-
 \section{Design}
     \subsection{Project organisation}
 	We started with a simple implementation which was able to solve a small number of boards. 
@@ -130,26 +126,73 @@
 
 	\subsection{States representation}
 	A state can be represented by the position of the player and the position of each boxes on the map. 
-	Yet this representation is naive. 
-	We want to have a new state when we push a box and not when we only move the player, without touching a box.
+	Yet this representation is naive because it considers that states which differ only by a player move are different.
+	For exemple the two following situations are considered as two different states even if we can go from one to the other only by moving the 
+	player without touching a box.
+	\begin{verbatim}
+	#############                 #############
+	#  .    $   #                 #  .    $   #
+	#     @     #                 #@          #
+	###$#########                 ###$#########
+	#     $  ...#                 #     $  ...#
+	#############                 #############
+	\end{verbatim}
+	
+
+	We want to have a new state when we push a box and not when we move the player.
 	So instead of considering the player position, we consider the area he can reach.
 	This area can be computed easily by a recursive algortihm.
+	The two situations can now be represented as the same state:
+	\begin{verbatim}
+	#############
+	#XOOOOOO$OOO#
+	#OOOOOOOOOOO#
+	###$#########
+	#     $  ...#
+	#############
+
+	O: reachable area
+	X: leftest, upmost case of the reachable aread (called normalized position)
+	\end{verbatim}
 	Two states can be compared by looking at the box position and the leftest, upmost case of the reachable area.
-	To evoid to save too many data, we destroy the reachable area when computed, and we keep only this normalized player position.
+	To avoid to save too many data, we destroy the reachable area when computed, and we keep only this normalized player position.
+
 	
 	\subsection{Initial algorithm}
 	To expand a state, we look at each direction of each box. 
 	If a direction is inside the area that the player can reach, we look if there is a hindrance (box or wall) in the opposite direction.
 	If this is not the case, the box can be pushed and we can create a new state.
+
+	\begin{verbatim}
+	#############  Here we can push down the leftest box because 
+	#X .    $   #  the upper direction is inside the reachable 
+	#  U        #  area and there is neither a wall nor a box
+	###$#########  in the opposite direction
+	#  D  $  ...#  
+	#############  X: normalize player position
+
+	We can create a new state:
+	#############
+	#X .    $   #
+	#     @     #
+	### #########
+	#  $  $  ...#
+	############# X: normalize player position
+	\end{verbatim}
+
 	The new state is compared with the states which have already been created. 
 	If the state existed already, we delete the new state.
 	Otherwise we add it to the list of created states and to the fifo of the states wich must be expanded.
 	Then we can take the next state in the fifo and repeat the procedure.
+	This is the Breadth-First-Search algorithm.
+
+	\begin{figure}[h]
+	\centerline{\includegraphics[height=5 cm, width=5cm]{./state_fifo.png}}
+	\end{figure}
+
 	We stop when we reach a final state (ie. a state where all the boxes are on a goal).
 	Once we found a final state, we apply a pathfinding algortihm to build the solution string from the succession of states.
-	This algorithm performs a Breadth-First-Search in the search space.
-
-	With this first version we could only solve 1 board out of 100. 
+ With this first version we could only solve 1 board out of 100. 
 
 	\subsection{Deadlock}
 	1 board solved (the same that with the initial algorithm) but the board is solved after around 3500 nodes (instead of 7700 before)
