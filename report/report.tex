@@ -40,7 +40,7 @@
           %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{0.2\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{kth_mathematics_rgb.jpg}
+                \includegraphics[width=\textwidth]{paul.jpg}
                 \caption{Paul}
                 \label{fig:Paul}
         \end{subfigure}
@@ -72,7 +72,7 @@
 
 
     Caroline Laurène Kéramsi, keramsi@kth.se, XXXXXX-XXXX \\
-    Paul Lagrée,lagree@kth.se, XXXXXX-XXXX \\
+    Paul Lagrée, lagree@kth.se, 900629-T133 \\
     Sindri Magnússon, sindrim@kth.se, 871209-7156 \\
     Tobias Johannes, Uebbing@kth.se, XXXXXX-XXXX \\
 
@@ -89,7 +89,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%
-%%%%%%%%%% Report statrs
+%%%%%%%%%% Report starts
 %%%%%%%%%%
 \cleardoublepage
 \tableofcontents
@@ -101,8 +101,8 @@
 
 \section{Introduction}
 
-    Sokoban is an popular puzzel dating back to the eighties.  
-    The original setting of the puzzel is a warehouse and the problem is to push boxes
+    Sokoban is a popular puzzle dating back to the eighties.  
+    The original setting of the puzzle is a warehouse and the problem is to push boxes
     around to predefined storage locations.  
     But the underlying problem is of course much more abstract.  The rules are simple~\cite{wiki_soko}: 
     %cite http://en.wikipedia.org/wiki/Sokoban
@@ -112,9 +112,9 @@
         \item The player cannot walk through boxes or walls.
         \item The puzzle is solved when all boxes are located at storage locations.
     \end{enumerate}
-    Though the rules are simple the problem is quite difficult and has been proven to be $NP$-hard.
-    This is not only due to the brancing factor but also the 
-    enormous deepth of the search tree~\cite{wiki_soko}.
+    Even though the rules are simple, the problem is quite difficult and has been proven to be $NP$-hard.
+    This is not only due to the branching factor but also the 
+    enormous depth of the search tree~\cite{wiki_soko}.
     
 
     
@@ -135,7 +135,8 @@
 	So instead of considering the player position, we consider the area he can reach.
 	This area can be computed easily by a recursive algortihm.
 	Two states can be compared by looking at the box position and the leftest, upmost case of the reachable area.
-
+	To evoid to save too many data, we destroy the reachable area when computed, and we keep only this normalized player position.
+	
 	\subsection{Initial algorithm}
 	To expand a state, we look at each direction of each box. 
 	If a direction is inside the area that the player can reach, we look if there is a hindrance (box or wall) in the opposite direction.
@@ -162,7 +163,7 @@
         It is therefore very desirable to be able to detect deadlock as soon as possible.
 	  \subsubsection{Frozen deadlock}
 	    We say that a box is frozen if it can neither be moved in horizontal nor vertical direction.  
-	    A frozen box can sometimes be made un-frozen.  For an example if the box is blocked by a box that is not frozen.  
+	    A frozen box can sometimes be made un-frozen.  For example if the box is blocked by a box that is not frozen.  
 	    Frozen deadlock occurs when a box is not located on a goal, frozen and can not be made un-frozen.  
 	    A box can not be made un-frozen if it can not be moved in horizontal direction because of either:
 	
@@ -185,18 +186,34 @@
           \subsubsection{Dead positions}
             There are some locations on the map such that if we put a box there it will always lead to a deadlock, we call those locations dead positions.  
             Some of these dead positions can easily be be found before we start the solver. 
-            Then we just need to make sure that we don’t move boxes to these dead positions.   
-
-
+            Then we just need to make sure that we don’t move boxes to these dead positions. 
+            By doing that, we reduce a lot the search space since we remove many possibilities where we can push boxes.
+            
             
 	
 	\subsection{A*}
+	After having coded a simple BFS algorithm, we decided to improve it in an A* algorithm. 
+	Instead of using a simple fifo for the states which still have to be explored, we sort them depending on a heuristic function. 
+	This function compute the Euclidean distance (also know as 2-norm distance) of each  box to a goal. 
+	Of course we do not use twice the same goal and we use the closest goal when it is possible. 
+	This implementation has improved our Sokoban solver by reducing the number of nodes needed to be explored.
 
 	\subsection{Pathfinding algorithm}
 
     \subsection{Search}
         sdf~\cite{solving_soko}
     \subsection{Pruning}
+    To evoid to explore too many states, we decided to save all explored states. 
+    When a state is created, we compare it to the already explored states. 
+    If it has already been explored, then we do not add it to the fifo of states which will be explored. 
+    By doing so, we expect to reduce the search space. 
+    In the beginning, we used to save explored states in a simple list, but when we added a new state, we were obliged to scroll the whole list. 
+    This linear time was a huge slow-down, so we decided to use another representation for explored states.
+    
+    Instead of using a simple list, we finally decided to use a hash table to represent them. 
+    It permits to explore much more nodes in the tree since it runs much faster. 
+    We do not scroll a whole list, but we compute a hash given the positions of boxes and the normalized player position. 
+    We concatenate these parameters in a single string and compute the hash using an existing function for strings in the standard library.
 
 
 \section{Results}

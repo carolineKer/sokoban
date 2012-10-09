@@ -92,11 +92,9 @@ class State
 
 				for (it_b = state->boxes.begin(); it_b != state->boxes.end(); it_b++)
 				{
-					//total += std::hash<int>()((*it_b).i) ^ std::hash<int>()((*it_b).i);
 					texte+=(*it_b).i+(*it_b).j;
 				}
 				texte+=(state->max_pos).i+(state->max_pos).j;
-				//total += std::hash<int>()((state->max_pos).i) ^ std::hash<int>()((state->max_pos).j);
 				total=std::hash<std::string>()(texte);
 				return total;
 			} ;

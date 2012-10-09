@@ -1,17 +1,11 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.6.14)  9 OCT 2012 16:20
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.9)  9 OCT 2012 18:29
 entering extended mode
  %&-line parsing enabled.
 **report.tex
 (./report.tex
 LaTeX2e <2009/09/24>
 Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
-yphenation, farsi, arabic, croatian, bulgarian, ukrainian, russian, czech, slov
-ak, danish, dutch, finnish, french, basque, ngerman, german, german-x-2009-06-1
-9, ngerman-x-2009-06-19, ibycus, monogreek, greek, ancientgreek, hungarian, san
-skrit, italian, latin, latvian, lithuanian, mongolian2a, mongolian, bokmal, nyn
-orsk, romanian, irish, coptic, serbian, turkish, welsh, esperanto, uppersorbian
-, estonian, indonesian, interlingua, icelandic, kurmanji, slovenian, polish, po
-rtuguese, spanish, galician, catalan, swedish, ukenglish, pinyin, loaded.
+yphenation, loaded.
 (/usr/share/texmf-texlive/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/share/texmf-texlive/tex/latex/base/size10.clo
@@ -376,17 +370,18 @@ Package caption Info: End \AtBeginDocument code.
  <kth_mathematics_rgb.jpg, id=1, 72.27pt x 72.14955pt>
 File: kth_mathematics_rgb.jpg Graphic file (type jpg)
 
-<use kth_mathematics_rgb.jpg>
+<use kth_mathematics_rgb.jpg> <paul.jpg, id=2, 602.25pt x 602.25pt>
+File: paul.jpg Graphic file (type jpg)
+
+<use paul.jpg>
 File: kth_mathematics_rgb.jpg Graphic file (type jpg)
  <use kth_mathematics_rgb.jpg>
 File: kth_mathematics_rgb.jpg Graphic file (type jpg)
-
-<use kth_mathematics_rgb.jpg>
-File: kth_mathematics_rgb.jpg Graphic file (type jpg)
- <use kth_mathematics_rgb.jpg> [1
+ <use kth_mathematics_rgb.jpg>
+[1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./kth_mathematics_rgb.jpg>
-] (./report.toc
+ <./paul.jpg>] (./report.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 3.
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -395,8 +390,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 \tf@toc=\write3
 \openout3 = `report.toc'.
 
-
-[1
+ [1
 
 ]
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -405,30 +399,1031 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 115.
  [2] (./report.bbl
 LaTeX Font Info:    Try loading font information for OT1+pcr on input line 6.
- (/usr/share/texmf-texlive/tex/latex/psnfss/ot1pcr.fd
+
+(/usr/share/texmf-texlive/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-))
-[3] (./report.aux) ) 
+)
+! Font OT1/pcr/m/n/9=pcrr7t at 9.0pt not loadable: Metric (TFM) file not found.
+<to be read again> 
+                   relax 
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+I wasn't able to read the size data for this font,
+so I will ignore the font specification.
+[Wizards can fix TFM files using TFtoPL/PLtoTF.]
+You might try inserting a different font spec;
+e.g., type `I\font<same font id>=<substitute font name>'.
+
+! \textfont 0 is undefined (character h).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character t).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character t).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character p).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character :).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character /).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character /).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character e).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character n).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character .).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character w).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character i).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character k).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character i).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character p).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character e).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character d).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character i).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character a).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character .).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character o).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character r).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character g).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character /).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character w).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character i).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character k).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character i).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character /).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character S).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character o).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character k).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character o).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character b).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character a).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character n).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.6 ... \url{http://en.wikipedia.org/wiki/Sokoban}
+                                                  , October 2012.
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character h).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character t).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character t).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character p).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character :).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character /).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character /).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character s).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character o).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character k).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character o).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character b).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character a).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character n).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character o).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character .).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character d).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character e).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character /).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character w).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character i).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character k).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character i).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character /).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character i).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character n).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character d).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character e).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character x).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character .).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character p).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character h).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character p).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character ?).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character t).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character i).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character t).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character l).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character e).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character =).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character H).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character o).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character w).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character _).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character t).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character o).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character _).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character d).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character e).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character t).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character e).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character c).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character t).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character _).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character d).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character e).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character a).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character d).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character l).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character o).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character c).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character k).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+! \textfont 0 is undefined (character s).
+\Url@FormatString ...\Url@String \UrlRight \m@th $
+                                                  
+l.12 ...i/index.php?title=How_to_detect_deadlocks}
+                                                  ,
+Somewhere in the math formula just ended, you used the
+stated character from an undefined font family. For example,
+plain TeX doesn't allow \it or \sl in subscripts. Proceed,
+and I'll try to forget that I needed that character.
+
+) [3] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 3884 strings out of 493848
- 56298 string characters out of 1152823
- 119120 words of memory out of 3000000
- 7138 multiletter control sequences out of 15000+50000
- 9313 words of font info for 33 fonts, out of 3000000 for 9000
- 714 hyphenation exceptions out of 8191
+ 3888 strings out of 495061
+ 56351 string characters out of 1182621
+ 118140 words of memory out of 3000000
+ 7043 multiletter control sequences out of 15000+50000
+ 8798 words of font info for 31 fonts, out of 3000000 for 9000
+ 28 hyphenation exceptions out of 8191
  36i,8n,38p,211b,505s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr
-/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texm
-f-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texlive/f
-onts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-texlive/fonts/type1/p
-ublic/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsf
-onts/cm/cmmi9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr1
-0.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/
-share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-t
-exlive/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on report.pdf (4 pages, 186125 bytes).
+</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/
+cmbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
+</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/
+texmf-texlive/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-texl
+ive/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texmf-texlive/fonts/ty
+pe1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/a
+msfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/c
+mr9.pfb>
+Output written on report.pdf (4 pages, 275226 bytes).
 PDF statistics:
- 53 PDF objects out of 1000 (max. 8388607)
+ 49 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
