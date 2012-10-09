@@ -1,13 +1,3 @@
-@string{jgr = "J.~Geophys.~Res."}
-
-@INBOOK{chicago,
-   title = "The Chicago Manual of Style",
-   publisher = "University of Chicago Press",
-   edition = "Thirteenth",
-   year = 1982,
-   pages = "400--401",
-   key = "Chicago"
-}
    
 @ONLINE{wiki_soko,
   author = "Unknown author",
@@ -17,10 +7,19 @@
   url = "http://en.wikipedia.org/wiki/Sokoban"
 }
 
+
+@MISC{frozen_deadlock,
+author = {Unknown author},
+title = {sokoban wiki, frozen deadlock},
+month = {October},
+year = {2012},
+howpublished={\url{http://sokobano.de/wiki/index.php?title=How_to_detect_deadlocks}}
+}
+
 @MASTERSTHESIS{solving_soko,
         author = "Timo Virkkala",
         title = "Solving Sokoban",
-        institution = "UNIVERSITY OF HELSINKI",
+        school = "UNIVERSITY OF HELSINKI",
         %month = "April"
         year = "2011"
 }

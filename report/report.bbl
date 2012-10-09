@@ -2,7 +2,15 @@
 
 \bibitem{wiki_soko}
 Unknown author.
-\newblock sokoban on wikipedia, Oktober 2012.
+\newblock sokoban on wikipedia.
+\newblock \url{http://en.wikipedia.org/wiki/Sokoban}, October 2012.
+
+\bibitem{frozen_deadlock}
+Unknown author.
+\newblock sokoban wiki, frozen deadlock.
+\newblock
+  \url{http://sokobano.de/wiki/index.php?title=How_to_detect_deadlocks},
+  October 2012.
 
 \bibitem{solving_soko}
 Timo Virkkala.

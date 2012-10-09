@@ -10,6 +10,7 @@
 \usepackage[usenames,dvipsnames]{color}
 \usepackage{courier}
 \usepackage{fullpage}
+\usepackage{url}
 
 
 % Title Page
@@ -149,9 +150,46 @@
 
 	With this first version we could only solve 1 board out of 100. 
 
-	\subsection{Deadlocks}
+	\subsection{Deadlock}
 	1 board solved (the same that with the initial algorithm) but the board is solved after around 3500 nodes (instead of 7700 before)
 
+	It is not possible to go from all states to the final state.  
+	For example if a box is blocked by a wall in both vertical and horizontal direction and is not located on a goal.  
+	Since the box is stuck it can never reach a goal and hence it is not possible to go from this state to the final state.    
+	We call such states deadlocks.
+
+        Search in the subtree below a deadlock is just a waste since it is not possible to reach the final state from there.  
+        It is therefore very desirable to be able to detect deadlock as soon as possible.
+	  \subsubsection{Frozen deadlock}
+	    We say that a box is frozen if it can neither be moved in horizontal nor vertical direction.  
+	    A frozen box can sometimes be made un-frozen.  For an example if the box is blocked by a box that is not frozen.  
+	    Frozen deadlock occurs when a box is not located on a goal, frozen and can not be made un-frozen.  
+	    A box can not be made un-frozen if it can not be moved in horizontal direction because of either:
+	
+	    \begin{enumerate}[I]
+                \item There is a wall on either the left or right side of the box.
+                \item There is a frozen box on either the left or right side of the box.
+            \end{enumerate}
+            and it can not be moved in vertical direction because either: 
+            \begin{enumerate}[I]
+                \item There is a wall either above or below the box.
+                \item There is a frozen box either above or below the box.
+            \end{enumerate}
+            With these rules we can recursively check if a box creates a frozen deadlock.  
+            The only problem is that we can get stuck in loop if some of the boxes in the recursion checks if the original box creates a frozen deadlock.  
+            This can be avoided by treating all already checked box as a wall ~\cite{frozen_deadlock}.    
+            The initial state should not contain a frozen deadlock.  
+            For each new state after the initial state we check if the newly moved box is on goal and if not we check if it creates a frozen deadlock. 
+            Even if the box is on goal the recursive algorithm could detect a frozen deadlock if the move freezes some other box that is not on a goal.  
+            There was not enough time to implement this though.
+          \subsubsection{Dead positions}
+            There are some locations on the map such that if we put a box there it will always lead to a deadlock, we call those locations dead positions.  
+            Some of these dead positions can easily be be found before we start the solver. 
+            Then we just need to make sure that we don’t move boxes to these dead positions.   
+
+
+            
+	
 	\subsection{A*}
 
 	\subsection{Pathfinding algorithm}

@@ -3,9 +3,12 @@
 \contentsline {subsection}{\numberline {2.1}Project organisation}{2}
 \contentsline {subsection}{\numberline {2.2}States representation}{2}
 \contentsline {subsection}{\numberline {2.3}Initial algorithm}{2}
-\contentsline {subsection}{\numberline {2.4}Deadlocks}{2}
-\contentsline {subsection}{\numberline {2.5}Pathfinding algorithm}{2}
-\contentsline {subsection}{\numberline {2.6}Search}{2}
-\contentsline {subsection}{\numberline {2.7}Pruning}{3}
+\contentsline {subsection}{\numberline {2.4}Deadlock}{2}
+\contentsline {subsubsection}{\numberline {2.4.1}Frozen deadlock}{3}
+\contentsline {subsubsection}{\numberline {2.4.2}Dead positions}{3}
+\contentsline {subsection}{\numberline {2.5}A*}{3}
+\contentsline {subsection}{\numberline {2.6}Pathfinding algorithm}{3}
+\contentsline {subsection}{\numberline {2.7}Search}{3}
+\contentsline {subsection}{\numberline {2.8}Pruning}{3}
 \contentsline {section}{\numberline {3}Results}{3}
 \contentsline {section}{\numberline {4}Conclusions}{3}
