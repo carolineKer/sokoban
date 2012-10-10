@@ -376,31 +376,25 @@ We will explain both why we decided to use them in our project and how well they
 	\subsection{Search algorithm}
 	\subsubsection{A*}
 	After having coded a simple BFS algorithm, we decided to improve it in an A* algorithm. 
-	Instead of using a simple fifo for the states which still have to be explored, we sort them depending on a heuristic function. 
-	This function compute the Euclidean distance (also know as 2-norm distance) of each  box to a goal. 
-	Of course we do not use twice the same goal and we use the closest goal when it is possible. 
+	As long as the solution state is not found while expanding successor nodes it keeps on expanding. The expand() function within the State class returns the solution state in case it found it. Otherwise it adds all successor states that are unhandled and have no deadlocks to the priority queue. The priority queue is automatically sorted by the heuristic values of the states using the Compare() function. Then the current state is set to the first in the priority queue, the one with the smallest heuristic value. This continues until the solution state is found.
+	
+	The heuristic function computes the Euclidean distance (also know as 2-norm distance) of each  box to a goal. 
+	Of course we do not use twice the same goal and we use the closest goal when it is possible. It means we take a new box and we compute the lowest distance to a free goal. Then we loop on all boxes and add all distances to return the sum. 
 	This implementation has improved our Sokoban solver by reducing the number of nodes needed to be explored.
 
 	\begin{figure}[h]
 	\centerline{\includegraphics[height=5 cm, width=5cm]{./priority_state.png}}
 	\end{figure}
 
-
-    \subsection{Search}
-	\subsubsection{A*}
-	The A* algorithm approaches the search for the solution state in the following way:
-
-	As long as the solution state is not found while expanding successor nodes it keeps on expanding. The expand() function 	within the State class returns the solution state in case it found it. Otherwise it adds all successor states that are 		unhandled and have no deadlocks to the priority queue. The priority queue is automatically sorted by the heuristic values of 		the states using the Compare() function. Then the current state is set to the first in the priority queue, the one with the 		smallest heuristic value. This continues until the solution state is found.
-
 	\subsubsection{IDA*}
 	The IDA* algorithm is meant to decrease the number of nodes that has to be explored even more:
 
-	The implemented IDA* is based on IDDFS. It uses the same expand() function as the A* algorithm described above. But it got a 		different function to choose from the priority queue which state should be expanded next. The nextStateToExpand_IDA() 		function consideres only states with a cost value under a specific cost limit based on the costs of the predecessor state. 		The IDAStar_Search() function uses this select function to search for the final state iterative deepening depth first search 		like.
+	The implemented IDA* is based on IDDFS. It uses the same expand() function as the A* algorithm described above. But it got a different function to choose from the priority queue which state should be expanded next. The nextStateToExpand_IDA() function consideres only states with a cost value under a specific cost limit based on the costs of the predecessor state. The IDAStar_Search() function uses this select function to search for the final state iterative deepening depth first search like.
 
-	The one time costs of the predecessor were first use as cost limit to decide which node is worth expanding. Nevertheless 		Sokoban requires sometimes to expand a node that has higher costs than it's predecessor to find the solution state. 
-	So furthermore an implementation of a factor for the predecessor costs were made to be able to reach also those nodes by 		restarting the IDA* algorithm with an increased factor until the solution state is found. But during testing it become clear 		that it would be necessary to reset the whole agent and all data like there was no search operation at all to be able to go 		through the whole tree again. Implementing this would have needed an amount of time that sadly was not left in the end of the 		project.
+	The one time costs of the predecessor were first use as cost limit to decide which node is worth expanding. Nevertheless Sokoban requires sometimes to expand a node that has higher costs than it's predecessor to find the solution state. 
+	So furthermore an implementation of a factor for the predecessor costs were made to be able to reach also those nodes by restarting the IDA* algorithm with an increased factor until the solution state is found. But during testing it become clear that it would be necessary to reset the whole agent and all data like there was no search operation at all to be able to go through the whole tree again. Implementing this would have needed an amount of time that sadly was not left in the end of the project.
 
-        sdf~\cite{solving_soko}
+        \cite{solving_soko}
 
 
 \section{Results}
