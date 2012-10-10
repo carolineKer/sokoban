@@ -116,7 +116,8 @@ We will explain both why we decided to use them in our project and how well they
     
     \subsection{Project organisation}
 	We started with a simple implementation which was able to solve a small number of boards. 
-	Then we applied different methods to improve it.
+	Then we applied different methods to improve it.  
+        We got alot of ideas from \cite{solving_soko} and \cite{sokoban_wiki}.
 	As it takes time to get feedbacks from the server, we wrote our own bash script to evaluate the number of boards we are able to solve.
 	This script runs our solver on 100 boards (server port 5032).
 	We did not want to wait too long for the results of the script so we limited the search time to 30 seconds per board.
@@ -128,6 +129,8 @@ We will explain both why we decided to use them in our project and how well they
 	Thus we can compare the results of the current version with an older one
 	and we can revert the changes if the performance decreased.
 	Our git repository is on GitHub \url{https://github.com/carolineKer/sokoban.git}.
+
+      
 
 \section{First version}
 	\subsection{States representation}
@@ -390,7 +393,7 @@ We will explain both why we decided to use them in our project and how well they
 	The one time costs of the predecessor were first use as cost limit to decide which node is worth expanding. Nevertheless Sokoban requires sometimes to expand a node that has higher costs than it's predecessor to find the solution state. 
 	So furthermore an implementation of a factor for the predecessor costs were made to be able to reach also those nodes by restarting the IDA* algorithm with an increased factor until the solution state is found. But during testing it become clear that it would be necessary to reset the whole agent and all data like there was no search operation at all to be able to go through the whole tree again. Implementing this would have needed an amount of time that sadly was not left in the end of the project.
 
-        \cite{solving_soko}
+        %\cite{solving_soko}
 
 
 \section{Results}
