@@ -95,14 +95,14 @@
 \tableofcontents
 \newpage
 
-\abstract{Sokoban is a famous game invented during the eighties. Even if the rules are quite simple, it is often studied in artificial intelligence since it has been proved to be a $NP$-hard problem. The search space can be really huge, so everything is about finding smart ways to make computation fast and pruning the search tree as efficiently as possible. In this report, we will present the different techniques we implemented in our Sokoban solver. We will explain both why we decided to use them in our project and how well they improved our solver (in terms of time and number of nodes explored).}
-
-
+\abstract{Sokoban is a famous game invented during the eighties. Even if the rules are quite simple, it is often studied in artificial intelligence since it has been proved to be a $NP$-hard and $PSPACE$ problem. 
+This difficulty is not only due to the branching factor but also to the enormous depth of the search tree~\cite{wiki_soko}.
+In order to design a good sokoban solver it is necessary to find smart ways to make computation fast and prune the search tree as efficiently as possible. 
+In this report, we will present the different techniques we implemented in our Sokoban solver. 
+We will explain both why we decided to use them in our project and how well they improved our solver (in terms of time and number of nodes explored).}
 
 \section{Introduction}
-
 	\subsection{Problem description}
-    Sokoban is a popular puzzle dating back to the eighties.  
     The original setting of the puzzle is a warehouse and the problem is to push boxes
     around to predefined storage locations.  
     But the underlying problem is of course much more abstract.  The rules are simple~\cite{wiki_soko}: 
@@ -113,17 +113,13 @@
         \item The player cannot walk through boxes or walls.
         \item The puzzle is solved when all boxes are located at storage locations.
     \end{enumerate}
-    Even though the rules are simple, the problem is quite difficult and has been proven to be $NP$-hard.
-    This is not only due to the branching factor but also the 
-    enormous depth of the search tree~\cite{wiki_soko}.
-    
     
     \subsection{Project organisation}
 	We started with a simple implementation which was able to solve a small number of boards. 
 	Then we applied different methods to improve it.
 	As it takes time to get feedbacks from the server, we wrote our own bash script to evaluate the number of boards we are able to solve.
 	This script runs our solver on 100 boards (server port 5032).
-	We didn't want to wait too long for the results of the script so we limited the search time to 30 seconds per board.
+	We did not want to wait too long for the results of the script so we limited the search time to 30 seconds per board.
 
 	Team work on a software project can be challenging because it involves concurrent work on the same source code. 
 	That's why we decided to use a revision control software, git. 
@@ -139,6 +135,7 @@
 	Yet this representation is naive because it considers that states which differ only by a player move are different.
 	For exemple the two following situations are considered as two different states even if we can go from one to the other only by moving the 
 	player without touching a box.
+	
 	\begin{verbatim}
 	#############                 #############
 	#  .    $   #                 #  .    $   #
@@ -154,15 +151,12 @@
 	This area can be computed easily by a recursive algortihm.
 	The two situations can now be represented as the same state:
 	\begin{verbatim}
-	#############
-	#XOOOOOO$OOO#
-	#OOOOOOOOOOO#
+	#############   O: reachable area
+	#XOOOOOO$OOO#   X: leftest, upmost case of the reachable area 
+	#OOOOOOOOOOO#      (called normalized player position)
 	###$#########
 	#     $  ...#
 	#############
-
-	O: reachable area
-	X: leftest, upmost case of the reachable aread (called normalized position)
 	\end{verbatim}
 	Two states can be compared by looking at the box position and the leftest, upmost case of the reachable area.
 	To avoid to save too many data, we destroy the reachable area when computed, and we keep only this normalized player position.
@@ -226,7 +220,7 @@
 
 \section{Improvements}
     \subsection{Hash table for repeated states}
-    To evoid to explore too many states, we decided to save all explored states. 
+    To avoid to explore too many states, we decided to save all explored states. 
     When a state is created, we compare it to the already explored states. 
     If it has already been explored, then we do not add it to the fifo of states which will be explored. 
     By doing so, we expect to reduce the search space. 
