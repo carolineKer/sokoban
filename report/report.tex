@@ -397,7 +397,11 @@ We will explain both why we decided to use them in our project and how well they
 
 
 \section{Results}
-After having implemented all our different techniques, we still have some boards we are not able to solve. Two main reasons have been noticed. First, since we use a heuristic which favour states in which boxes are closer to there goals than others, it makes boards which have to be solved by using a huge detour very difficult to be solved fast. The heuristic function has the advantage of running really fast, but it is not really smart. 
+After having implemented all our different techniques, we have finally reached a total of \emph{76 boards solved} when we run our script on the test server provided. When we submitted, we obtained results not quite as good since we solved around 70\% of boards, but still satisfying.
+
+
+
+Even though we solve most boards provided, we still have some boards we are not able to solve. Two main reasons have been noticed. First, since we use a heuristic which favour states in which boxes are closer to there goals than others, it makes boards which have to be solved by using a huge detour very difficult to be solved fast. The heuristic function has the advantage of running really fast, but it is not really smart. 
 We had to choose between an intelligent heuristic function requiring large computations and a simple and fast function requiring almost no computation. We chose this second solution.
 \begin{verbatim}
 ###################  We have to push some boxes over a lot of goals
@@ -424,7 +428,7 @@ We have noticed a second reason explaining unsolved boards. When there are many 
 \end{verbatim}
 
 
-\section{Conclusions}
+%\section{Conclusions}
    
       
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
