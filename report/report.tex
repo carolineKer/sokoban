@@ -123,19 +123,18 @@ We will explain both why we decided to use them in our project and how well they
 
 	Team work on a software project can be challenging because it involves concurrent work on the same source code. 
 	That's why we decided to use a revision control software, git. 
-	Git enables us to work concurrently on the same code source more easily.
-	It also keeps track of the history of the source code.
+	Git enables us to work concurrently on the same source code more easily.
+	It also keeps track of the history of the project.
 	Thus we can compare the results of the current version with an older one
 	and we can revert the changes if the performance decreased.
 	Our git repository is on GitHub \url{https://github.com/carolineKer/sokoban.git}.
 
 \section{First version}
 	\subsection{States representation}
-	A state can be represented by the position of the player and the position of each boxes on the map. 
+	A state can be represented by the position of the player and the position of each box on the map. 
 	Yet this representation is naive because it considers that states which differ only by a player move are different.
 	For exemple the two following situations are considered as two different states even if we can go from one to the other only by moving the 
 	player without touching a box.
-	
 	\begin{verbatim}
 	#############                 #############
 	#  .    $   #                 #  .    $   #
@@ -144,8 +143,6 @@ We will explain both why we decided to use them in our project and how well they
 	#     $  ...#                 #     $  ...#
 	#############                 #############
 	\end{verbatim}
-	
-
 	We want to have a new state when we push a box and not when we move the player.
 	So instead of considering the player position, we consider the area he can reach.
 	This area can be computed easily by a recursive algortihm.
@@ -160,7 +157,6 @@ We will explain both why we decided to use them in our project and how well they
 	\end{verbatim}
 	Two states can be compared by looking at the box position and the leftest, upmost case of the reachable area.
 	To avoid to save too many data, we destroy the reachable area when computed, and we keep only this normalized player position.
-
 	
 	\subsection{Search algorithm}
 	To expand a state, we look at each direction of each box. 
@@ -188,7 +184,7 @@ We will explain both why we decided to use them in our project and how well they
 	If the state existed already, we delete the new state.
 	Otherwise we add it to the list of created states and to the fifo of the states wich must be expanded.
 	Then we can take the next state in the fifo and repeat the procedure.
-	This is the Breadth-First-Search algorithm.
+	This is a Breadth-First-Search algorithm.
 
 	\begin{figure}[h]
 	\centerline{\includegraphics[height=5 cm, width=5cm]{./state_fifo.png}}
@@ -285,44 +281,44 @@ We will explain both why we decided to use them in our project and how well they
 			Our algorithm is able to detect 3 kinds of dead positions.
 			The first configuration is the easiest to detect. A box is blocked if two orthogonal directions are blocked:
             \begin{verbatim}
-	     #  #   #$   #  #       The box is stuck in both the vertical and horizontal
-	    #$  $#   #  #$ #$# ...  direction and is not on a goal.
+			             #      #        #$       #        #       
+			            #$      $#        #      #$       #$# 
 			\end{verbatim}
 
 			A box is also in a dead position if it is blocked on a line against a wall where there is no goal.
 			To detect this kind of configuration, our algorithm starts from a dead position and progress along the wall until it finds
 			another dead position (the line is dead), the end of the wall (the line is not dead) or a goal (the line is not dead).
 		\begin{verbatim}
-	    ##           
-	     #     #######			The box is stuck in a verical or horizontal line
-	    $#     #  $  #			which contains no goals.
-	     #            
-	    ##         
+		##           
+		 #     #######          The box is stuck in a vertical or horizontal line
+		$#     #  $  #          against a wall which contains no goals.
+		 #
+		##
 
-		 ############			This line is dead (noted D).
+		 ############           This line is dead (noted D).
 		#D-->       D#
-		:
-		 ##########				This line is not dead because there is no wall 
+		 
+		 ##########             This line is not dead because there is no wall 
 		#D-->      O            in the upper direction of the case O
 	    \end{verbatim}
 
 			The last configuration are tunnels without goals which end on dead positions wich are blocked by three walls:
 		\begin{verbatim}
-		 #########
-		#D     $                If we push a box in this tunnel, we can not push it out.
+		 #########              If we push a box in this tunnel, 
+		#D     $                we can not push it out.
 		 #########
 
-		#@########
-		#D     $                Here the dead position is only blocked by two walls. The player can enter
-		##########              the tunnel and push the box out. It is not a dead tunnel.
+		#@########              Here the dead position is only blocked by two walls. 
+		#D     $                The player can enter the tunnel and push the box out. 
+		##########              It is not a dead tunnel.
 		\end{verbatim}
 
 		However we had to consider the special case where the player and the box are already inside the tunnel. 
 		This can happen at the begining of the game.
 		\begin{verbatim}
 		 #########
-		#D @   $O                Even if the case O is a dead position, we must push the box on it.
-		 #########
+		#D @   $O               Even if the case O is a dead position, 
+		 #########              we must push the box on it.
 		\end{verbatim}
 
 	\subsection{Tunnels}
@@ -368,9 +364,9 @@ We will explain both why we decided to use them in our project and how well they
 	So we can prune this possibility.
 
 	\begin{verbatim}
-	 ########
-	@$      $		This is a tunnel deadlock.
-	 ########       The boxes can not be pushed out of the tunnel.
+	 ########       This is a tunnel deadlock.
+	@$      $       The boxes can not be pushed out of the tunnel.
+	 ########       
 	\end{verbatim}
 
 	\subsection{Search algorithm}
