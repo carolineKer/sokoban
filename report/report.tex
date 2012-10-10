@@ -274,21 +274,55 @@
             The idea of the recursive algorithm is taken from  ~\cite{frozen_deadlock}.
           \subsubsection{Dead positions}
             There are some locations on the map such that if we put a box there it will always lead to a deadlock, we call those locations dead positions.  
-            Some of these dead positions can easily be be found before we start the solver. 
-            Then we just need to make sure that we don’t move boxes to these dead positions. 
+			These positions does not depend on the position of other boxes.
+			Hence they can be computed once, at the begining of the game.
+            Then we just need to make sure that we do not move boxes to these dead positions. 
             By doing that, we reduce a lot the search space since we remove many possibilities where we can push boxes.
-            The dead positions types we detect are:
-	    \begin{verbatim}
+			
+
+			Our algorithm is able to detect 3 kinds of dead positions.
+			The first configuration is the easiest to detect. A box is blocked if two orthogonal directions are blocked:
+            \begin{verbatim}
+	     #  #   #$   #  #       The box is stuck in both the vertical and horizontal
+	    #$  $#   #  #$ #$# ...  direction and is not on a goal.
+			\end{verbatim}
+
+			A box is also in a dead position if it is blocked on a line against a wall where there is no goal.
+			To detect this kind of configuration, our algorithm starts from a dead position and progress along the wall until it finds
+			another dead position (the line is dead), the end of the wall (the line is not dead) or a goal (the line is not dead).
+		\begin{verbatim}
 	    ##           
-	     #     #######        The box is stuck in a verical or horizontal line
-	    $#     #  $  #        which contains no goals.
+	     #     #######			The box is stuck in a verical or horizontal line
+	    $#     #  $  #			which contains no goals.
 	     #            
 	    ##         
-	      
-	      
-	     #  #   #$   #       The box is stuck in both the vertical and horizontal
-	    #$  $#   #  #$       direction not on a goal.
+
+		 ############			This line is dead (noted D).
+		#D-->       D#
+		:
+		 ##########				This line is not dead because there is no wall 
+		#D-->      O            in the upper direction of the case O
 	    \end{verbatim}
+
+			The last configuration are tunnels without goals which end on dead positions wich are blocked by three walls:
+		\begin{verbatim}
+		 #########
+		#D     $                If we push a box in this tunnel, we can not push it out.
+		 #########
+
+		#@########
+		#D     $                Here the dead position is only blocked by two walls. The player can enter
+		##########              the tunnel and push the box out. It is not a dead tunnel.
+		\end{verbatim}
+
+		However we had to consider the special case where the player and the box are already inside the tunnel. 
+		This can happen at the begining of the game.
+		\begin{verbatim}
+		 #########
+		#D @   $O                Even if the case O is a dead position, we must push the box on it.
+		 #########
+		\end{verbatim}
+
             
             
 	\subsection{Search algorithm}
