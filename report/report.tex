@@ -331,8 +331,54 @@
 		 #########
 		\end{verbatim}
 
-            
-            
+	\subsection{Tunnels}
+	At the begining of the game, we run an algorithm on the map to detect tunnels.
+	The entries of a tunnel are noted A and B. The case inside the tunnel are marked as C.
+	We consider that a case can be part of a tunnel if it does not contain a goal 
+	and if either both vertical or both horizontal directions are blocked.
+	Tunnels must also contain at least two cases.
+	\begin{verbatim}
+    ##############
+    # ACCCCB     #
+    # ######  #A#
+    #         #C#
+    #   #A#   #B#
+    #   #B#   #.#
+    #         #A#
+    #         #B#
+    #############
+	\end{verbatim}
+
+	\subsubsection{Movement inside a tunnel}
+	We implemented a special move for boxes inside a tunnel. 
+	When a box which is on a tunnel entry (for example A) is pushed inside the tunnel (to a case C), the
+	box is directly \textit{teleported} to the other tunnel entry (for example B).
+	This technique cuts down the depth of the solution.
+
+	\begin{verbatim}
+	Going through a tunnel of n cases without tunnel macro: n pushes needed
+	  ####    ####    ####    ####   ####
+	@$ACCB   @$CCB    @$CB    A@$B   AC@$
+	  ####    ####    ####    ####   ####
+
+	Going through a tunnel of n cases with a tunnel macro: 2 pushes needed
+	  ####    ####   ####
+	@$ACCB   @$CCB   AC@$
+	  ####    ####   ####
+
+	\end{verbatim}
+
+	\subsubsection{Tunnel deadlock}
+	When a box is pushed to a tunnel entry (A or B), we checked that there is no box on the other entry.
+	If this condition is not met, the push will lead to a so-called tunnel deadlock. 
+	So we can prune this possibility.
+
+	\begin{verbatim}
+	 ########
+	@$      $		This is a tunnel deadlock.
+	 ########       The boxes can not be pushed out of the tunnel.
+	\end{verbatim}
+
 	\subsection{Search algorithm}
 	\subsubsection{A*}
 	After having coded a simple BFS algorithm, we decided to improve it in an A* algorithm. 
@@ -351,6 +397,24 @@
 
 
 \section{Results}
+After having implemented all our different techniques, we still have some boards we are not able to solve. Two main reasons have been noticed. First, since we use a heuristic which favour states in which boxes are closer to there goals than others, it makes boards which have to be solved by using a huge detour very difficult to be solved fast. The heuristic function has the advantage of running really fast, but it is not really smart. 
+We had to choose between an intelligent heuristic function requiring large computations and a simple and fast function requiring almost no computation. We chose this second solution.
+
+We have noticed a second reason explaining unsolved boards. When there are many boxes, our solver often does not find the correct solution. Obviously, this is not a real surprise since the more boxes we have, the more different states we are suppose to explore. By addind just a few boxes, the search tree increases a lot and make the research much more difficult.
+
+\begin{verbatim}
+############
+##         #
+## $$$ $## #
+##  .... # #
+#   *****  #       An example of a board with too many
+# ##.....###       boxes for our solver
+#   $$$$$  #
+## ## # ## #
+##    @    #
+############
+\end{verbatim}
+
 
 \section{Conclusions}
    
