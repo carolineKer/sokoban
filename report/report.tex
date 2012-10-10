@@ -331,8 +331,54 @@
 		 #########
 		\end{verbatim}
 
-            
-            
+	\subsection{Tunnels}
+	At the begining of the game, we run an algorithm on the map to detect tunnels.
+	The entries of a tunnel are noted A and B. The case inside the tunnel are marked as C.
+	We consider that a case can be part of a tunnel if it does not contain a goal 
+	and if either both vertical or both horizontal directions are blocked.
+	Tunnels must also contain at least two cases.
+	\begin{verbatim}
+    ##############
+    # ACCCCB     #
+    # ######  #A#
+    #         #C#
+    #   #A#   #B#
+    #   #B#   #.#
+    #         #A#
+    #         #B#
+    #############
+	\end{verbatim}
+
+	\subsubsection{Movement inside a tunnel}
+	We implemented a special move for boxes inside a tunnel. 
+	When a box which is on a tunnel entry (for example A) is pushed inside the tunnel (to a case C), the
+	box is directly \textit{teleported} to the other tunnel entry (for example B).
+	This technique cuts down the depth of the solution.
+
+	\begin{verbatim}
+	Going through a tunnel of n cases without tunnel macro: n pushes needed
+	  ####    ####    ####    ####   ####
+	@$ACCB   @$CCB    @$CB    A@$B   AC@$
+	  ####    ####    ####    ####   ####
+
+	Going through a tunnel of n cases with a tunnel macro: 2 pushes needed
+	  ####    ####   ####
+	@$ACCB   @$CCB   AC@$
+	  ####    ####   ####
+
+	\end{verbatim}
+
+	\subsubsection{Tunnel deadlock}
+	When a box is pushed to a tunnel entry (A or B), we checked that there is no box on the other entry.
+	If this condition is not met, the push will lead to a so-called tunnel deadlock. 
+	So we can prune this possibility.
+
+	\begin{verbatim}
+	 ########
+	@$      $		This is a tunnel deadlock.
+	 ########       The boxes can not be pushed out of the tunnel.
+	\end{verbatim}
+
 	\subsection{Search algorithm}
 	\subsubsection{A*}
 	After having coded a simple BFS algorithm, we decided to improve it in an A* algorithm. 
