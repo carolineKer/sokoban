@@ -351,6 +351,24 @@
 
 
 \section{Results}
+After having implemented all our different techniques, we still have some boards we are not able to solve. Two main reasons have been noticed. First, since we use a heuristic which favour states in which boxes are closer to there goals than others, it makes boards which have to be solved by using a huge detour very difficult to be solved fast. The heuristic function has the advantage of running really fast, but it is not really smart. 
+We had to choose between an intelligent heuristic function requiring large computations and a simple and fast function requiring almost no computation. We chose this second solution.
+
+We have noticed a second reason explaining unsolved boards. When there are many boxes, our solver often does not find the correct solution. Obviously, this is not a real surprise since the more boxes we have, the more different states we are suppose to explore. By addind just a few boxes, the search tree increases a lot and make the research much more difficult.
+
+\begin{verbatim}
+############
+##         #
+## $$$ $## #
+##  .... # #
+#   *****  #       An example of a board with too many
+# ##.....###       boxes for our solver
+#   $$$$$  #
+## ## # ## #
+##    @    #
+############
+\end{verbatim}
+
 
 \section{Conclusions}
    
