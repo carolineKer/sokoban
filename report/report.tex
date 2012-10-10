@@ -397,8 +397,8 @@ We will explain both why we decided to use them in our project and how well they
 After having implemented all our different techniques, we still have some boards we are not able to solve. Two main reasons have been noticed. First, since we use a heuristic which favour states in which boxes are closer to there goals than others, it makes boards which have to be solved by using a huge detour very difficult to be solved fast. The heuristic function has the advantage of running really fast, but it is not really smart. 
 We had to choose between an intelligent heuristic function requiring large computations and a simple and fast function requiring almost no computation. We chose this second solution.
 \begin{verbatim}
-###################  We have to push some boxes over alot of goals
-#    $   .........#  which dose not give us a gain in the heuristics
+###################  We have to push some boxes over a lot of goals
+#    $   .........#  which does not give us a gain in the heuristic
 # $ $#$$ $ $ $ $  #  function.  Hence we will not converge very fast to
 #      ############  a solution.
 ########
