@@ -101,6 +101,7 @@
 
 \section{Introduction}
 
+	\subsection{Problem description}
     Sokoban is a popular puzzle dating back to the eighties.  
     The original setting of the puzzle is a warehouse and the problem is to push boxes
     around to predefined storage locations.  
@@ -117,7 +118,6 @@
     enormous depth of the search tree~\cite{wiki_soko}.
     
     
-\section{Design}
     \subsection{Project organisation}
 	We started with a simple implementation which was able to solve a small number of boards. 
 	Then we applied different methods to improve it.
@@ -125,6 +125,7 @@
 	This script runs our solver on 100 boards (server port 5032).
 	We didn't want to wait too long for the results of the script so we limited the search time to 30 seconds per board.
 
+\section{First version}
 	\subsection{States representation}
 	A state can be represented by the position of the player and the position of each boxes on the map. 
 	Yet this representation is naive because it considers that states which differ only by a player move are different.
@@ -159,7 +160,7 @@
 	To avoid to save too many data, we destroy the reachable area when computed, and we keep only this normalized player position.
 
 	
-	\subsection{Initial algorithm}
+	\subsection{Search algorithm}
 	To expand a state, we look at each direction of each box. 
 	If a direction is inside the area that the player can reach, we look if there is a hindrance (box or wall) in the opposite direction.
 	If this is not the case, the box can be pushed and we can create a new state.
@@ -193,9 +194,27 @@
 
 	We stop when we reach a final state (ie. a state where all the boxes are on a goal).
 	Once we found a final state, we apply a pathfinding algortihm to build the solution string from the succession of states.
- With this first version we could only solve 1 board out of 100. 
 
-	\subsection{Deadlock}
+	\subsection{Pathfinding algorithm}
+
+	\subsection{Results}
+	With this first version we could only solve 1 board out of 100. 
+
+\section{Improvements}
+    \subsection{Hash table for repeated states}
+    To evoid to explore too many states, we decided to save all explored states. 
+    When a state is created, we compare it to the already explored states. 
+    If it has already been explored, then we do not add it to the fifo of states which will be explored. 
+    By doing so, we expect to reduce the search space. 
+    In the beginning, we used to save explored states in a simple list, but when we added a new state, we were obliged to scroll the whole list. 
+    This linear time was a huge slow-down, so we decided to use another representation for explored states.
+    
+    Instead of using a simple list, we finally decided to use a hash table to represent them. 
+    It permits to explore much more nodes in the tree since it runs much faster. 
+    We do not scroll a whole list, but we compute a hash given the positions of boxes and the normalized player position. 
+    We concatenate these parameters in a single string and compute the hash using an existing function for strings in the standard library.
+
+	\subsection{Deadlocks}
 	1 board solved (the same that with the initial algorithm) but the board is solved after around 3500 nodes (instead of 7700 before)
 
 	It is not possible to go from all states to the final state.  
@@ -255,9 +274,8 @@
 	    \end{verbatim}
             
             
-            
-	
-	\subsection{A*}
+	\subsection{Search algorithm}
+	\subsubsection{A*}
 	After having coded a simple BFS algorithm, we decided to improve it in an A* algorithm. 
 	Instead of using a simple fifo for the states which still have to be explored, we sort them depending on a heuristic function. 
 	This function compute the Euclidean distance (also know as 2-norm distance) of each  box to a goal. 
@@ -268,22 +286,9 @@
 	\centerline{\includegraphics[height=5 cm, width=5cm]{./priority_state.png}}
 	\end{figure}
 
-	\subsection{Pathfinding algorithm}
 
     \subsection{Search}
         sdf~\cite{solving_soko}
-    \subsection{Pruning}
-    To evoid to explore too many states, we decided to save all explored states. 
-    When a state is created, we compare it to the already explored states. 
-    If it has already been explored, then we do not add it to the fifo of states which will be explored. 
-    By doing so, we expect to reduce the search space. 
-    In the beginning, we used to save explored states in a simple list, but when we added a new state, we were obliged to scroll the whole list. 
-    This linear time was a huge slow-down, so we decided to use another representation for explored states.
-    
-    Instead of using a simple list, we finally decided to use a hash table to represent them. 
-    It permits to explore much more nodes in the tree since it runs much faster. 
-    We do not scroll a whole list, but we compute a hash given the positions of boxes and the normalized player position. 
-    We concatenate these parameters in a single string and compute the hash using an existing function for strings in the standard library.
 
 
 \section{Results}
