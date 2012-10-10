@@ -116,6 +116,7 @@
     This is not only due to the branching factor but also the 
     enormous depth of the search tree~\cite{wiki_soko}.
     
+    
 \section{Design}
     \subsection{Project organisation}
 	We started with a simple implementation which was able to solve a small number of boards. 
@@ -240,6 +241,18 @@
             Some of these dead positions can easily be be found before we start the solver. 
             Then we just need to make sure that we don’t move boxes to these dead positions. 
             By doing that, we reduce a lot the search space since we remove many possibilities where we can push boxes.
+            The dead positions types we detect are:
+            \begin{verbatim}
+	    ##           
+	     #     #######        The box is stuck in a verical or horizontal line
+	    $#     #  $  #        which contains no goals.
+	     #            
+	    ##         
+	      
+	      
+	     #  #   #$   #       The box is stuck in both the vertical and horizontal
+	    #$  $#   #  #$       direction not on a goal.
+	    \end{verbatim}
             
             
             
