@@ -1,0 +1,18 @@
+\contentsline {section}{\numberline {1}Introduction}{2}
+\contentsline {subsection}{\numberline {1.1}Problem description}{2}
+\contentsline {subsection}{\numberline {1.2}Project organisation}{2}
+\contentsline {section}{\numberline {2}First version}{2}
+\contentsline {subsection}{\numberline {2.1}States representation}{2}
+\contentsline {subsection}{\numberline {2.2}Search algorithm}{3}
+\contentsline {subsection}{\numberline {2.3}Pathfinding algorithm}{3}
+\contentsline {subsection}{\numberline {2.4}Results}{4}
+\contentsline {section}{\numberline {3}Improvements}{4}
+\contentsline {subsection}{\numberline {3.1}Hash table for repeated states}{4}
+\contentsline {subsection}{\numberline {3.2}Deadlocks}{4}
+\contentsline {subsubsection}{\numberline {3.2.1}Frozen deadlock}{5}
+\contentsline {subsubsection}{\numberline {3.2.2}Dead positions}{5}
+\contentsline {subsection}{\numberline {3.3}Search algorithm}{6}
+\contentsline {subsubsection}{\numberline {3.3.1}A*}{6}
+\contentsline {subsection}{\numberline {3.4}Search}{6}
+\contentsline {section}{\numberline {4}Results}{6}
+\contentsline {section}{\numberline {5}Conclusions}{6}
