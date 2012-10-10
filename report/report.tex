@@ -48,7 +48,7 @@
           %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{0.2\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{kth_mathematics_rgb.jpg}
+                \includegraphics[width=\textwidth]{sindri.jpeg}
                 \caption{Sindri}
                 \label{fig:Sindri}
         \end{subfigure}
@@ -228,18 +228,19 @@
                 \item There is a wall either above or below the box.
                 \item There is a frozen box either above or below the box.
             \end{enumerate}
-            With these rules we can recursively check if a box creates a frozen deadlock.  
-            The only problem is that we can get stuck in loop if some of the boxes in the recursion checks if the original box creates a frozen deadlock.  
+            With these rules we can recursively check if a box causes a frozen deadlock.  
+            The only problem is that we can get stuck in loop if some of the boxes in the recursion checks if the original box causes a frozen deadlock.  
             This can be avoided by treating all already checked box as a wall ~\cite{frozen_deadlock}.    
             The initial state should not contain a frozen deadlock.  
-            For each new state after the initial state we check if the newly moved box is on goal and if not we check if it creates a frozen deadlock. 
+            For each new state after the initial state we check if the newly moved box is on goal and if not we check if it causes a frozen deadlock. 
             Even if the box is on goal the recursive algorithm could detect a frozen deadlock if the move freezes some other box that is not on a goal.  
-            There was not enough time to implement this though.
+            There was not enough time to implement this though.  The idea of the recursive algorithm is taken from  ~\cite{frozen_deadlock}.
           \subsubsection{Dead positions}
             There are some locations on the map such that if we put a box there it will always lead to a deadlock, we call those locations dead positions.  
             Some of these dead positions can easily be be found before we start the solver. 
             Then we just need to make sure that we don’t move boxes to these dead positions. 
             By doing that, we reduce a lot the search space since we remove many possibilities where we can push boxes.
+            
             
             
 	
