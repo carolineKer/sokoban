@@ -74,7 +74,7 @@
     Caroline Laurène Kéramsi, keramsi@kth.se, XXXXXX-XXXX \\
     Paul Lagrée, lagree@kth.se, 900629-T133 \\
     Sindri Magnússon, sindrim@kth.se, 871209-7156 \\
-    Tobias Johannes, Uebbing@kth.se, XXXXXX-XXXX \\
+    Tobias Johannes, Uebbing@kth.se, 900617-T251 \\
 
 
 \vfill
@@ -196,6 +196,21 @@
 	Once we found a final state, we apply a pathfinding algortihm to build the solution string from the succession of states.
 
 	\subsection{Pathfinding algorithm}
+
+	The function findPath() in the class Ground will return the needed string containing the directions from the given start to 		the given goal. The function first checks whether the given start is not already the desired goal. In that case the function 		would just return an empty string. Otherwise findPath() calls it's helper function explorePath() that actual contains the 		pathfinding algorithm.
+
+	The algorithm used within the explorePath() function is a directed DFS, that means it will dynamically try to go in the 	direction of the goal instead of always start to explore one specific direction. There will be more detailed explanation of 		this process later on.
+	The explorePath() function first checks whether it has reached the aim. If that is true it returns. If not it tries to get a 		accessible neighbour point to go to using the getNextCell() function. If there is no suitable neighbour available the 		function returns the current point. So explorePath() ensures that the next cell to explore is not the current cell and then 		pushes the next cell on the end of the path point vector. Afterwards it calls itself recursivley with the next point as start 		and the the same goal as before.
+	In the case there is no suitable neighbour to the current cell on the board explorePath() pushes the current cell to the 		daedends point vector which is used by the isPassable() function to make sure that the algorithm will not get to this board 		cell again. Then it calls itself recursivley again with the ancestor in the path point vector. 
+	It can happen that the algorithm returns back to a path point and it came from the last possible move to make from that 	point. Than explorePath first removes this cell from the path point vector by testing whether the current cell is equal to 		the last path point saved in the path point vector before it does the recursive call.
+
+	Next the functionality of the getNextCell() function will be described in more details, since it dymancially decides which 		direction is best to go to reach the goal as fast as possible. First getNextCell() calculates the distance of the x and y 		position of the goal to the ones of the aim. Then is tests which of the four directions is accessible and stores the result 		in an array. Then it decides which direction to go depending on the algebraic sign of the distance and whether this direction 		is passable. It has a preference to first go into the x direction and then in the y direction. If none of the prefered 		direction is suitable it attempts to choose the first passable direction within the passable array. If all that fails the 		return point stays the current point and the functions returns it.
+
+	The isPassable() function that is used by the getNextCell function considers multiple situations that makes the point not 		passable. It takes into account whether the point was already visted before, is out of the board area, is blocked by a wall 		or a box or is a deadend that we have explored before.
+
+	When the explorePath() function returns the findPath() function goes through the generated path point vector and generates 		the path string and returns it.
+
+	A point of improvement would be to introduce a depth limit that is orientated on the manhattan distance to the goal and use 		iterative deepening. Additionally to reverse the order of the prefered dirctions and run the algorithm again before 		increasing the depth limit would improve the perfomance. But since this path finding algorithm effects the perfomance of the 		agent only very restricted the project team concentrated first on improving the solution finding algorithm.
 
 	\subsection{Results}
 	With this first version we could only solve 1 board out of 100. 
